@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import "./fonts/tungsten-semibold_bigfontsite.com.otf";
 
 ReactDOM.render(
   <React.StrictMode>
