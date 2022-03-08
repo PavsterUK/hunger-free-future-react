@@ -1,6 +1,5 @@
 .container {
     display: flex;
-    border: solid 1px orchid;
     width: 100vw;
     height: 75vh;
     max-width: 100%;

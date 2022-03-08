@@ -1,15 +1,12 @@
-import React from 'react'
+import React from "react";
 
-import styles from "./SearchBar.module.css"
+import styles from "./SearchBar.module.css";
 
 const SearchBar = () => {
-  return (
-    <div className={styles.container}>
-        <p>SEARCHBAR</p>
-        <p>SEARCHBAR</p>
-        <p>SEARCHBAR</p>
-        </div>
-  )
-}
+  return <div className={styles.container}>
+      <input className={styles.input} placeholder="Please enter town name or postcode" type="search"></input>
 
-export default SearchBar
+  </div>;
+};
+
+export default SearchBar;

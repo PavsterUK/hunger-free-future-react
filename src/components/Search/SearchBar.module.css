@@ -1,4 +1,25 @@
 .container {
-    border: 1px solid red;
+    display: flex;
+    justify-content: center;
     width: 100%;
+    background-color: #3141ec;
+}
+
+.input {
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-color: aliceblue;
+    color: aliceblue;
+    margin: .5em 0 .5em 0;
+    padding-left: .5em;
+    width: 95%;
+    font-size: 1.5em;
+    background-color: #3141ec;
+}
+
+input::placeholder {
+    color: aliceblue;
+    font-style: italic;
 }
