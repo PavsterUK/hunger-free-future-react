@@ -5,3 +5,7 @@
     width: 100%;
     max-width: 100%;
 }
+
+.filters {
+    padding: 0.5em .5em 0.5em .5em;
+}

@@ -12,7 +12,7 @@ const Map = () => {
       <MapContainer center={[54.17247343528976, -4.590914887363949]} zoom={6} > 
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://api.maptiler.com/maps/bright/{z}/{x}/{y}.png?key=NtCHCLnEB2T8gRRbY03N"
+          url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=NtCHCLnEB2T8gRRbY03N"
         />
         <Marker position={[51.505, -0.09]}>
           <Popup>
