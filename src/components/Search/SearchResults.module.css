@@ -7,5 +7,49 @@
 }
 
 .filters {
+    display: flex;
+    justify-content: space-between;
     padding: 0.5em .5em 0.5em .5em;
+    margin: 0.7em .7em 0.3em .7em; 
+    border: 1px solid black;
+    border-radius: 5px;
 }
+
+.filters:hover {
+    border: 3px solid #3141ec;
+}
+
+.filters h2 {
+    text-transform: uppercase;
+    font-family: Tungsten-Semibold;
+    letter-spacing: 0.05em;
+    font-weight: 100;
+    font-size: 1.3em;
+}
+
+.verticalLine {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3em;
+    height: 100%;
+    border-left: 1px solid grey;
+}
+
+.dropdown {
+    display: none;
+    position: relative;
+    border: 1px solid black;
+    height: 2em;
+    padding: 0.5em .5em 0.5em .5em;
+    margin: 0em .7em 0.7em .7em; 
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+
+.filters:hover~.dropdown {
+    display: block;
+}
+
+

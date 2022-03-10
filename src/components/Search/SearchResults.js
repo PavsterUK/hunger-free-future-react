@@ -6,11 +6,13 @@ const FoodBankResults = () => {
   return (
     <div className={styles.container}>
       <div className={styles.filters}>
-        <input type="checkbox" id="withNeeds" />
-        <label for="withNeeds"> Currently Requiring Items</label>
+        <h2>select filters</h2>
+        <div className={styles.verticalLine}>
+          <div className={styles.dropdownSymbolDown}>&#x25BC;</div>
+          </div>
       </div>
-      <hr/>
-      <h3></h3>
+      <div className={styles.dropdown}></div>
+      <h1>results</h1>
     </div>
   );
 };
