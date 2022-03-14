@@ -6,11 +6,10 @@
     width: 100%;
     height: 10vh;
     max-width: 100%;
-    
 }
 
 .logo h1{
-    margin: 0 0 0 1em;
+    margin: 0 0 0 .5em;
     font-family: Tungsten-Semibold;
     font-size: 4em;
     text-transform: uppercase;

@@ -4,7 +4,7 @@ import styles from "./SearchBar.module.css";
 
 const SearchBar = () => {
   return <div className={styles.container}>
-      <input className={styles.input} placeholder="Please enter town name or postcode" type="search"></input>
+      <input className={styles.input} placeholder="Please enter location here" type="search"></input>
 
   </div>;
 };
