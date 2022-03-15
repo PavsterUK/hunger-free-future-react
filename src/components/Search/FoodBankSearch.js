@@ -10,7 +10,7 @@ const FoodBankSearch = () => {
 
   const foodBankList = getFoodBankList();
 
-  
+  console.log(foodBankList);
 
   return (
     <div className={styles.container}>

@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Foodbank from "./Foodbank";
 
-import { fetchFromAPI } from '../FetchFromAPI';
-
 export const getFoodBankList = () => {
-  const foodBanksJSON = fetchFromAPI("http://localhost:8080/v1/api/food-banks");
+  let data = [];
 
-  console.log(foodBanksJSON);
+  async function fetchData() {
+    const apiURL = "http://localhost:8080/v1/api/food-banks";
+
+    try {
+      const response = await fetch(apiURL);
+
+      if (!response.ok) {
+        throw Error(`error while loading from api ${apiURL}`);
+      }
+      data = await response.json();
+    } catch (e) {}
+  }
 
   let foodBankList = [];
 
-  for (const key in foodBanksJSON) {
+  for (const key in data) {
+    console.log(key);
     if (Object.hasOwnProperty(key)) {
       foodBankList.push(
         <Foodbank
