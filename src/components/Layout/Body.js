@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./Body.module.css";
 import Map from "../Map/Map";
 import FoodBankSearch from "../Search/FoodBankSearch";
 
 const Body = () => {
+  const [locations, setLocations] = useState();
+
+  console.log(locations);
+
   return (
     <div className={styles.container}>
-      <FoodBankSearch />
-      <Map />
+      <FoodBankSearch setLocations={setLocations} locations={locations} />
+      <Map locations={locations} />
     </div>
   );
 };
