@@ -7,8 +7,6 @@ import FoodBankSearch from "../Search/FoodBankSearch";
 const Body = () => {
   const [locations, setLocations] = useState();
 
-  console.log(locations);
-
   return (
     <div className={styles.container}>
       <FoodBankSearch setLocations={setLocations} locations={locations} />

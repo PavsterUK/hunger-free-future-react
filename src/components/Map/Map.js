@@ -1,13 +1,13 @@
 import React from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-
-import "./Map.css";
-import MarkerClusterGroup from 'react-leaflet-markercluster';
-import 'react-leaflet-markercluster/dist/styles.min.css';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 
-const Map = (props) => {
+import "./Map.css";
+import MarkerClusterGroup from "react-leaflet-markercluster";
+import "react-leaflet-markercluster/dist/styles.min.css";
 
+const Map = (props) => {
+  
   let locations = [];
 
   if (props.locations) {
@@ -22,20 +22,17 @@ const Map = (props) => {
     });
   }
 
-  const createClusterCustomIcon = (cluster) => {
-    const count = cluster.getChildCount();
-    
-  
-    return L.divIcon({
-      iconSize: 40,
-      html:
-        `<div>
-          <span class="markerClusterLabel">${count}</span>
-        </div>`,
-        className: 'my-div-icon',
-        
+  function GetFeaturesInView() {
+    const map = useMap();
+    var features = [];
+    map.eachLayer( function(layer) {
+      if(layer instanceof L.Marker) {
+        console.log(layer._markers);
+    }
     });
-  };
+    return null;
+  }
+
 
   return (
     <div className="map-container">
@@ -44,17 +41,19 @@ const Map = (props) => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=NtCHCLnEB2T8gRRbY03N"
         />
+
         <MarkerClusterGroup
-          iconCreateFunction={createClusterCustomIcon}
           showCoverageOnHover={false}
           spiderLegPolylineOptions={{
             weight: 0,
             opacity: 0,
           }}
-         >
-           {locations}
+        >
+          {locations}
         </MarkerClusterGroup>
-        
+
+        <GetFeaturesInView/>
+
       </MapContainer>
     </div>
   );
