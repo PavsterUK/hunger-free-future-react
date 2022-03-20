@@ -1,38 +1,44 @@
-import React from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import L from "leaflet";
+import React, { useRef } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Tooltip,
+  useMapEvent,
+} from "react-leaflet";
 
 import "./Map.css";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import "react-leaflet-markercluster/dist/styles.min.css";
 
 const Map = (props) => {
-  
-  let locations = [];
+  let mapRef = useRef();
 
-  if (props.locations) {
-    locations = props.locations.map((location) => {
+  let markers = [];
+
+  if (props.mapMarkers) {
+    markers = props.mapMarkers.map((marker) => {
       return (
-        <Marker position={location.lat_lng.split(",")}>
-          <Popup>
-            <p>{location.name}</p>
-          </Popup>
+        <Marker position={marker.lat_lng.split(",")}>
+          <Tooltip>
+            <span>{marker.name}</span>
+          </Tooltip>
         </Marker>
       );
     });
   }
 
-  function GetFeaturesInView() {
-    const map = useMap();
-    var features = [];
-    map.eachLayer( function(layer) {
-      if(layer instanceof L.Marker) {
-        console.log(layer._markers);
-    }
+  handleMove = () => {
+   console.log("moved")
+  }
+
+  
+  function MapBoundsAfterMove() {
+    const map = useMapEvent("moveend", () => {
+      // map.getBounds().pad(-0.97))
     });
     return null;
   }
-
 
   return (
     <div className="map-container">
@@ -49,11 +55,10 @@ const Map = (props) => {
             opacity: 0,
           }}
         >
-          {locations}
+          {markers}
         </MarkerClusterGroup>
 
-        <GetFeaturesInView/>
-
+        <MapBoundsAfterMove ref={mapRef} />
       </MapContainer>
     </div>
   );

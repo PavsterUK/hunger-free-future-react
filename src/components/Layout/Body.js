@@ -2,15 +2,28 @@ import React, { useState } from "react";
 
 import styles from "./Body.module.css";
 import Map from "../Map/Map";
-import FoodBankSearch from "../Search/FoodBankSearch";
+import FetchFoodbanksFromAPI from "../Foodbank/FetchFoodbanksFromAPI";
 
 const Body = () => {
-  const [locations, setLocations] = useState();
+  const [mapMarkers, setMapMarkers] = useState();
+  const [mapBounds, setMapBounds] = useState();
+  let markersWithinBounds = [];
+
+  if (mapBounds) {
+    markersWithinBounds = mapMarkers.map((foodbank) => {
+      if (mapBounds.contains(foodbank.lat_lng.split(","))) {
+        return foodbank;
+      }
+    });
+  }
 
   return (
     <div className={styles.container}>
-      <FoodBankSearch setLocations={setLocations} locations={locations} />
-      <Map locations={locations} />
+      <FetchFoodbanksFromAPI
+        setMapMarkers={setMapMarkers}
+        markersWithinBounds={markersWithinBounds}
+      />
+      <Map mapMarkers={mapMarkers} setMapBounds={setMapBounds} />
     </div>
   );
 };
