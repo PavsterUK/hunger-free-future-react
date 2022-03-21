@@ -12,7 +12,6 @@ import MarkerClusterGroup from "react-leaflet-markercluster";
 import "react-leaflet-markercluster/dist/styles.min.css";
 
 const Map = (props) => {
-  let mapRef = useRef();
 
   let markers = [];
 
@@ -28,14 +27,10 @@ const Map = (props) => {
     });
   }
 
-  handleMove = () => {
-   console.log("moved")
-  }
-
   
   function MapBoundsAfterMove() {
     const map = useMapEvent("moveend", () => {
-      // map.getBounds().pad(-0.97))
+      props.updateMapBounds(map.getBounds().pad(-0.97));
     });
     return null;
   }
@@ -58,7 +53,7 @@ const Map = (props) => {
           {markers}
         </MarkerClusterGroup>
 
-        <MapBoundsAfterMove ref={mapRef} />
+        <MapBoundsAfterMove />
       </MapContainer>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import styles from "./Body.module.css";
 import Map from "../Map/Map";
@@ -6,24 +6,23 @@ import FetchFoodbanksFromAPI from "../Foodbank/FetchFoodbanksFromAPI";
 
 const Body = () => {
   const [mapMarkers, setMapMarkers] = useState();
-  const [mapBounds, setMapBounds] = useState();
-  let markersWithinBounds = [];
-
-  if (mapBounds) {
-    markersWithinBounds = mapMarkers.map((foodbank) => {
-      if (mapBounds.contains(foodbank.lat_lng.split(","))) {
-        return foodbank;
-      }
-    });
+  let mapBoundsMoveend = null;
+   const childCompRef = useRef()
+  
+  const updateMapBounds = (mapBoundsMoveend) => {
+    childCompRef.current?.childFunction(mapBoundsMoveend);
   }
+
+
 
   return (
     <div className={styles.container}>
       <FetchFoodbanksFromAPI
         setMapMarkers={setMapMarkers}
-        markersWithinBounds={markersWithinBounds}
+        mapMarkers={mapMarkers}
+        ref={childCompRef}
       />
-      <Map mapMarkers={mapMarkers} setMapBounds={setMapBounds} />
+      <Map mapMarkers={mapMarkers} updateMapBounds={updateMapBounds} />
     </div>
   );
 };
