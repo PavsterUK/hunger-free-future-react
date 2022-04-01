@@ -2,6 +2,10 @@ import React from "react";
 
 import styles from "./Filters.module.css";
 
+function selectShortlistedApplicant(e) {
+  console.log(e.target.checked);
+}
+
 const Filters = () => {
   return (
     <div className={styles.container}>
@@ -13,8 +17,16 @@ const Filters = () => {
         <div className={styles.dropdown}>
           <ul>
             <li>
-              <input type="checkbox" id="inNeed" name="inNeed" />
-              <label for="inNeed">Currently Requiring Donations</label>
+              <input
+                type="checkbox"
+                id="showNeeds"
+                className="checkbox disable-team team_values"
+                value="1"
+                onClick={(e) => {
+                  selectShortlistedApplicant(e);
+                }}
+              />
+              <label for="showNeeds">With list of required items</label>
             </li>
           </ul>
         </div>

@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  
+  position: relative;
 }
 
 .input {
@@ -47,3 +47,21 @@ input::placeholder {
   font-style: italic;
   text-transform: capitalize;
 }
+
+
+
+.suggestions {
+  visibility: hidden;
+  border: 1px solid red;
+  position: absolute;
+  width: 96%;
+  top: 3.5em;
+  height: fit-content;
+  z-index: 10;
+  background-color: white;
+}
+
+.container:hover > .suggestions {
+  visibility: visible;
+}
+

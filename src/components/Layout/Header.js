@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div className={styles.container}>
         <div className={styles.logo}>
-            <h1>Find a Foodbank</h1>
+            <h1>UK Foodbanks</h1>
         </div>
         <Navbar/>
     </div>
