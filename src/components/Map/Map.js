@@ -17,6 +17,7 @@ const Map = (props) => {
   const [mapZoom, setMapZoom] = useState(6);
   let markers = [];
 
+  
   if (props.mapMarkers) {
     markers = props.mapMarkers.map((marker) => {
       return (
