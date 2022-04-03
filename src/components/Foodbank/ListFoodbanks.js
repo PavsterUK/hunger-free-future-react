@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./ListFoodbanks.module.css";
 
 const ListFoodbanks = (props) => {
-  const foodBanks = props.items.map((foodbank) => {
+  const foodBanks = props.items.map((foodbank, i) => {
     return (
-      <div className={styles.foodbank}>
+      <div key={i} className={styles.foodbank}>
         <h2>{foodbank.name}</h2>
         <a href={foodbank.homepage}>Homepage</a>
         <h4>{foodbank.address}</h4>

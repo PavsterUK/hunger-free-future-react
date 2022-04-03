@@ -11,25 +11,20 @@ import Filters from "./Filters";
 import SearchBar from "../Address/AddressSearchBox";
 import L from "leaflet";
 
-const FetchFromAPI = forwardRef(({ actionButtons, ...props }, ref) => {
+const Results = forwardRef(({ actionButtons, ...props }, ref) => {
   const [allFoodbanks, setAllFoodbanks] = useState([]);
-  const [allFbLocations, setAllFbLocations] = useState([]);
   const [foodbanksWithinBounds, setFoodbanksWithinBounds] = useState([]);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
+  useEffect( async () => {
     const foodbanksResp = await fetch("http://localhost:8080/v1/api/foodbanks-with-needs");
     const salvArmResp = await fetch("http://localhost:8080/v1/api/all-salvation-army-with-needs");
 
     const foodbanksJson = await foodbanksResp.json();
     const salvArmJson = await salvArmResp.json();
 
-    props.setMapMarkers([...foodbanksJson, ...salvArmJson]);
     setAllFoodbanks([...foodbanksJson, ...salvArmJson]);
-  };
+    props.setMapMarkers([...foodbanksJson, ...salvArmJson]);
+  }, []);
 
   useImperativeHandle(ref, () => ({
     setFbWithinBounds,
@@ -53,11 +48,11 @@ const FetchFromAPI = forwardRef(({ actionButtons, ...props }, ref) => {
 
   return (
     <div className={styles.container}>
-      <SearchBar />
+      <SearchBar zoomToLocation={props.zoomToLocation} />
       <Filters />
       <ListFoodbanks items={foodbanksWithinBounds} />
     </div>
   );
 });
 
-export default FetchFromAPI;
+export default Results;

@@ -5,7 +5,7 @@ import {
   Marker,
   Tooltip,
   useMapEvent,
-  Popup
+  Popup,
 } from "react-leaflet";
 
 import "./Map.css";
@@ -17,14 +17,13 @@ const Map = (props) => {
   const [mapZoom, setMapZoom] = useState(6);
   let markers = [];
 
-  
   if (props.mapMarkers) {
     markers = props.mapMarkers.map((marker) => {
       return (
         <Marker position={marker.lat_lng.split(",")}>
           <Tooltip>
             <span>{marker.name}</span>
-            <Popup >
+            <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Tooltip>
@@ -40,12 +39,17 @@ const Map = (props) => {
     return null;
   }
 
+  
+
   return (
     <div className="map-container">
-      <MapContainer center={mapCenter} zoom={mapZoom}>
+      <MapContainer
+        center={mapCenter}
+        zoom={mapZoom}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=NtCHCLnEB2T8gRRbY03N"
+          url="https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=HM5OeEc4UZtoMyYxgZbV"
         />
 
         <MarkerClusterGroup

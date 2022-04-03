@@ -22,17 +22,12 @@ const AddressSearchBox = (props) => {
     findSuggestions(userInput);
   };
 
-  const zoomToLocation = (location, zoom) => {
-    alert("here");
-    props.zoomToLocation(location, zoom);
-  };
-
   const suggestionList = (
     <ul>
       {suggestions.map((suggestion) => {
         return (
           <li
-            onClick={() => alert("clicked!")}
+            onClick={() => props.zoomToLocation([suggestion.latitude, suggestion.longitude], 4)}
             className={styles.suggestion}
             key={suggestion.id}
           >
