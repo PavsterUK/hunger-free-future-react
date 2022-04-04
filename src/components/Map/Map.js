@@ -39,8 +39,7 @@ const Map = (props) => {
     return null;
   }
 
-  
-
+   
   return (
     <div className="map-container">
       <MapContainer
