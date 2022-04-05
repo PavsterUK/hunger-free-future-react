@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import L from "leaflet";
-import { MapContainer, Marker, TileLayer, Tooltip, Popup, useMapEvent } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  TileLayer,
+  Tooltip,
+  Popup,
+  useMapEvent,
+} from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
+import ListFoodbanks from "../Foodbank/ListFoodbanks";
+import TownSearchBox from "../SearchBox/TownSearchBox";
 
 import "react-leaflet-markercluster/dist/styles.min.css";
-import styles from "./Body.module.css";
-import "../Map/Map.css";
+import "./Body.css";
 
 const Body = () => {
   const [mapMarkers, setMapMarkers] = useState([]);
   const [allFoodbanks, setAllFoodbanks] = useState([]);
   const [foodbanksWithinBounds, setFoodbanksWithinBounds] = useState([]);
+  const mapRef = useRef();
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [mapRef]);
 
   async function fetchData() {
     const foodbanksResp = await fetch(
@@ -30,26 +39,15 @@ const Body = () => {
     setMapMarkers([...foodbanksJson, ...salvArmJson]);
   }
 
-  // for (let i = 0; i < allFoodbanks.length; i++) {
-  //   let marker = new L.marker(
-  //     allFoodbanks[i].lat_lng.substring(
-  //       0,
-  //       allFoodbanks[i].lat_lng.indexOf(",") - 1
-  //     ),
-  //     allFoodbanks[i].lat_lng.substring(
-  //       allFoodbanks[i].lat_lng.indexOf(",") + 1,
-  //       allFoodbanks[i].lat_lng.length
-  //     )
-  //   ).addTo(map);
-  // }
-
-  
-
   function MapBoundsAfterMove() {
     const map = useMapEvent("moveend", () => {
       setFbWithinBounds(map.getBounds().pad(-0.97));
     });
     return null;
+  }
+
+  function flyToCoord(coordinates) {
+    mapRef.current.flyTo(coordinates, 13);
   }
 
   const setFbWithinBounds = (boundsAtMoveend) => {
@@ -68,9 +66,9 @@ const Body = () => {
     );
   };
 
-  let markers = mapMarkers.map((marker) => {
+  let markers = mapMarkers.map((marker, index) => {
     return (
-      <Marker position={marker.lat_lng.split(",")}>
+      <Marker key={marker.slug + index} position={marker.lat_lng.split(",")}>
         <Tooltip>
           <span>{marker.name}</span>
           <Popup>
@@ -81,29 +79,38 @@ const Body = () => {
     );
   });
 
-  console.log(foodbanksWithinBounds);
-
   return (
-    <div className={styles.bodyWrapper}>
-      <div className={styles.resultsContainer}></div>
-      <div className="map-container">
-        <MapContainer center={[54.172, -4.59]} zoom={6}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=HM5OeEc4UZtoMyYxgZbV"
-          />
-
-          <MarkerClusterGroup
-            showCoverageOnHover={false}
-            spiderLegPolylineOptions={{
-              weight: 0,
-              opacity: 0,
+    <div className="bodyContainer">
+      <div className="resultsContainer">
+        <TownSearchBox flyToCoord={flyToCoord} />
+        <ListFoodbanks items={foodbanksWithinBounds} />
+      </div>
+      <div className="mapWrapper">
+        <div className="map-container">
+          <MapContainer
+            whenCreated={(mapInstance) => {
+              mapRef.current = mapInstance;
             }}
+            center={[54.172, -4.59]}
+            zoom={6}
           >
-            {markers}
-          </MarkerClusterGroup>
-          <MapBoundsAfterMove />
-        </MapContainer>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=HM5OeEc4UZtoMyYxgZbV"
+            />
+
+            <MarkerClusterGroup
+              showCoverageOnHover={false}
+              spiderLegPolylineOptions={{
+                weight: 0,
+                opacity: 0,
+              }}
+            >
+              {markers}
+            </MarkerClusterGroup>
+            <MapBoundsAfterMove />
+          </MapContainer>
+        </div>
       </div>
     </div>
   );

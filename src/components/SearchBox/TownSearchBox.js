@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import styles from "./AddressSearchBox.module.css";
+import styles from "./TownSearchBox.module.css";
 
 const AddressSearchBox = (props) => {
   const [userInput, setUserInput] = useState("");
@@ -27,7 +27,7 @@ const AddressSearchBox = (props) => {
       {suggestions.map((suggestion) => {
         return (
           <li
-            onClick={() => props.zoomToLocation([suggestion.latitude, suggestion.longitude], 4)}
+            onClick={() => props.flyToCoord([suggestion.latitude, suggestion.longitude], setSuggestions([]))}
             className={styles.suggestion}
             key={suggestion.id}
           >
