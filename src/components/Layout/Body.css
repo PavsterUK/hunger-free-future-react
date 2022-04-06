@@ -10,6 +10,17 @@
   overflow: auto;
 }
 
+.searchboxContainer{
+  display: flex;
+  border: 1px solid red;
+  align-items: center;
+}
+
+.searchboxContainer img{
+  margin-left: .5em;
+  height: 1.5em;
+}
+
 .mapWrapper {
   width: 75vw;
 }

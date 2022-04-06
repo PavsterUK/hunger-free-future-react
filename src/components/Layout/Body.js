@@ -8,11 +8,13 @@ import {
   Tooltip,
   Popup,
   useMapEvent,
+  useMapEvents,
 } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import ListFoodbanks from "../Foodbank/ListFoodbanks";
 import TownSearchBox from "../SearchBox/TownSearchBox";
 
+import locateIcon from "../../img/currLoc.svg";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import "./Body.css";
 
@@ -41,13 +43,26 @@ const Body = () => {
 
   function MapBoundsAfterMove() {
     const map = useMapEvent("moveend", () => {
-      setFbWithinBounds(map.getBounds().pad(-0.97));
+      setFbWithinBounds(map.getBounds());
     });
     return null;
   }
 
+  function findCurrentLocation() {
+    let lat = "";
+    let lng = "";
+    mapRef.current.locate({setView: true, watch: true}) /* This will return map so you can do chaining */
+    .on('locationfound', function(e){
+      
+    })
+   .on('locationerror', function(e){
+        console.log(e);
+        alert("Location access denied.");
+    });
+  }
+
   function flyToCoord(coordinates) {
-    mapRef.current.flyTo(coordinates, 13);
+    mapRef.current.flyTo(coordinates, 11);
   }
 
   const setFbWithinBounds = (boundsAtMoveend) => {
@@ -82,7 +97,11 @@ const Body = () => {
   return (
     <div className="bodyContainer">
       <div className="resultsContainer">
-        <TownSearchBox flyToCoord={flyToCoord} />
+        <div className="searchboxContainer">
+          <img src={locateIcon} onClick={findCurrentLocation} />
+          <TownSearchBox flyToCoord={flyToCoord} />
+        </div>
+
         <ListFoodbanks items={foodbanksWithinBounds} />
       </div>
       <div className="mapWrapper">
