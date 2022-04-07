@@ -28,6 +28,7 @@ const AddressSearchBox = (props) => {
         return (
           <li
             onClick={() => props.flyToCoord([suggestion.latitude, suggestion.longitude], setSuggestions([]))}
+            onBlur={() => setSuggestions([]) }
             className={styles.suggestion}
             key={suggestion.id}
           >
@@ -47,6 +48,7 @@ const AddressSearchBox = (props) => {
         placeholder="Please enter you town name"
         type="search"
         onChange={onUserInputChange}
+        
       ></input>
       <div className={styles.suggestions}>{suggestionList}</div>
     </div>

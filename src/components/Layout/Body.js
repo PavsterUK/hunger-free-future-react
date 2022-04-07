@@ -8,7 +8,7 @@ import {
   Tooltip,
   Popup,
   useMapEvent,
-  useMapEvents,
+  useMap,
 } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import ListFoodbanks from "../Foodbank/ListFoodbanks";
@@ -26,6 +26,12 @@ const Body = () => {
 
   useEffect(() => {
     fetchData();
+  }, [mapRef]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      flyToCurrentLocation();
+    }, 3000);
   }, [mapRef]);
 
   async function fetchData() {
@@ -48,21 +54,29 @@ const Body = () => {
     return null;
   }
 
-  function findCurrentLocation() {
-    let lat = "";
-    let lng = "";
-    mapRef.current.locate({setView: true, watch: true}) /* This will return map so you can do chaining */
-    .on('locationfound', function(e){
-      
-    })
-   .on('locationerror', function(e){
+  function flyToCurrentLocation() {
+    const { current: map } = mapRef;
+    map
+      .locate() /* This will return map so you can do chaining */
+      .on("locationfound", function (e) {
+        flyToCoord([e.latitude, e.longitude]);
+        const popup = L.popup()
+          .setLatLng([e.latitude, e.longitude])
+          .setContent("<p>Your approx. location</p>")
+          .openOn(map);
+          setTimeout(() => {
+            L.circle([e.latitude, e.longitude], {radius: 100}).addTo(map);
+          }, 4000);
+        
+      })
+      .on("locationerror", function (e) {
         console.log(e);
-        alert("Location access denied.");
-    });
+        alert("Location declined by user.");
+      });
   }
 
-  function flyToCoord(coordinates) {
-    mapRef.current.flyTo(coordinates, 11);
+  async function flyToCoord(coordinates) {
+    await mapRef.current.flyTo(coordinates, 14);
   }
 
   const setFbWithinBounds = (boundsAtMoveend) => {
@@ -98,7 +112,7 @@ const Body = () => {
     <div className="bodyContainer">
       <div className="resultsContainer">
         <div className="searchboxContainer">
-          <img src={locateIcon} onClick={findCurrentLocation} />
+          <img src={locateIcon} onClick={flyToCurrentLocation} />
           <TownSearchBox flyToCoord={flyToCoord} />
         </div>
 
