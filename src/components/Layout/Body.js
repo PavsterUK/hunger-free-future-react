@@ -1,40 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import L from "leaflet";
-import {
-  MapContainer,
-  Marker,
-  TileLayer,
-  Tooltip,
-  Popup,
-  useMapEvent,
-  useMap,
-} from "react-leaflet";
+import { MapContainer, TileLayer, useMapEvent } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import ListFoodbanks from "../Foodbank/ListFoodbanks";
 import TownSearchBox from "../SearchBox/TownSearchBox";
+import AddMarkers from "../Map/AddMarkers";
 
 import locateIcon from "../../img/currLoc.svg";
+import spyGlass from "../../img/spy-glass.svg";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import "./Body.css";
 
 const Body = () => {
-  const [mapMarkers, setMapMarkers] = useState([]);
   const [allFoodbanks, setAllFoodbanks] = useState([]);
   const [foodbanksWithinBounds, setFoodbanksWithinBounds] = useState([]);
   const mapRef = useRef();
 
-  useEffect(() => {
-    fetchData();
-  }, [mapRef]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      flyToCurrentLocation();
-    }, 3000);
-  }, [mapRef]);
-
-  async function fetchData() {
+  useEffect(async () => {
     const foodbanksResp = await fetch(
       "http://localhost:8080/v1/api/foodbanks-with-needs"
     );
@@ -44,8 +27,13 @@ const Body = () => {
     const foodbanksJson = await foodbanksResp.json();
     const salvArmJson = await salvArmResp.json();
     setAllFoodbanks([...foodbanksJson, ...salvArmJson]);
-    setMapMarkers([...foodbanksJson, ...salvArmJson]);
-  }
+  }, [mapRef]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      flyToCurrentLocation();
+    }, 3000);
+  }, [mapRef]);
 
   function MapBoundsAfterMove() {
     const map = useMapEvent("moveend", () => {
@@ -57,17 +45,16 @@ const Body = () => {
   function flyToCurrentLocation() {
     const { current: map } = mapRef;
     map
-      .locate() /* This will return map so you can do chaining */
+      .locate() /*Returs map so you can do chaining */
       .on("locationfound", function (e) {
         flyToCoord([e.latitude, e.longitude]);
         const popup = L.popup()
           .setLatLng([e.latitude, e.longitude])
           .setContent("<p>Your approx. location</p>")
           .openOn(map);
-          setTimeout(() => {
-            L.circle([e.latitude, e.longitude], {radius: 100}).addTo(map);
-          }, 4000);
-        
+        setTimeout(() => {
+          L.circle([e.latitude, e.longitude], { radius: 100 }).addTo(map);
+        }, 4000);
       })
       .on("locationerror", function (e) {
         console.log(e);
@@ -76,7 +63,7 @@ const Body = () => {
   }
 
   async function flyToCoord(coordinates) {
-    await mapRef.current.flyTo(coordinates, 14);
+    await mapRef.current.flyTo(coordinates, 13);
   }
 
   const setFbWithinBounds = (boundsAtMoveend) => {
@@ -95,25 +82,21 @@ const Body = () => {
     );
   };
 
-  let markers = mapMarkers.map((marker, index) => {
-    return (
-      <Marker key={marker.slug + index} position={marker.lat_lng.split(",")}>
-        <Tooltip>
-          <span>{marker.name}</span>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Tooltip>
-      </Marker>
-    );
-  });
-
   return (
     <div className="bodyContainer">
       <div className="resultsContainer">
         <div className="searchboxContainer">
-          <img src={locateIcon} onClick={flyToCurrentLocation} />
           <TownSearchBox flyToCoord={flyToCoord} />
+          <div className="my-location-container">
+            <img
+              id="location-image"
+              src={locateIcon}
+              onClick={flyToCurrentLocation}
+            />
+            <label id="location-image-label" for="location-image">
+              My location
+            </label>
+          </div>
         </div>
 
         <ListFoodbanks items={foodbanksWithinBounds} />
@@ -139,7 +122,7 @@ const Body = () => {
                 opacity: 0,
               }}
             >
-              {markers}
+              <AddMarkers items={foodbanksWithinBounds} />
             </MarkerClusterGroup>
             <MapBoundsAfterMove />
           </MapContainer>

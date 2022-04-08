@@ -6,19 +6,27 @@
 }
 
 .resultsContainer {
-  width: 25vw;
+  width: 40vw;
   overflow: auto;
 }
 
-.searchboxContainer{
+.searchboxContainer {
   display: flex;
   border: 1px solid red;
   align-items: center;
+  justify-content: space-between;
 }
 
-.searchboxContainer img{
-  margin-left: .5em;
-  height: 1.5em;
+.my-location-container {
+  display: flex;
+  align-items: center;
+  margin-right: 1em;
+}
+
+.searchboxContainer img {
+  padding: 0.3em;
+  margin-left: 0.5em;
+  height: 2em;
 }
 
 .mapWrapper {
@@ -30,5 +38,3 @@
   height: 100%;
   max-height: 100%;
 }
-
-

@@ -13,6 +13,8 @@ const AddressSearchBox = (props) => {
       );
       const townsJson = await townsResp.json();
       setSuggestions(townsJson);
+    } else {
+      setSuggestions([]);
     }
   };
 
@@ -27,8 +29,12 @@ const AddressSearchBox = (props) => {
       {suggestions.map((suggestion) => {
         return (
           <li
-            onClick={() => props.flyToCoord([suggestion.latitude, suggestion.longitude], setSuggestions([]))}
-            onBlur={() => setSuggestions([]) }
+            onMouseDown={() =>
+              props.flyToCoord(
+                [suggestion.latitude, suggestion.longitude],
+                setSuggestions([])
+              )
+            }
             className={styles.suggestion}
             key={suggestion.id}
           >
@@ -45,10 +51,10 @@ const AddressSearchBox = (props) => {
       <input
         value={userInput}
         className={styles.input}
-        placeholder="Please enter you town name"
+        placeholder="Type your town name"
         type="search"
         onChange={onUserInputChange}
-        
+        onBlur={() => setSuggestions([])}
       ></input>
       <div className={styles.suggestions}>{suggestionList}</div>
     </div>
