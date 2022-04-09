@@ -1,9 +1,44 @@
-.container {
-  flex: 1;
-  overflow: auto;
+.foodbank {
+  display: flex;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.342);
 }
 
-.foodbank {
-    display: flex;
-    flex-direction: column;
+.mainInfo {
+  flex-grow: 1;
+}
+
+.locationIcon {
+  margin: 1.5em 1em 0 1em;
+  padding: 0.3em;
+  display: flex;
+  justify-content: center;
+  color: white;
+  background-color: green !important;
+  height: 2.5em !important;
+  min-width: fit-content !important;
+  width: 1.8em !important;
+  border-radius: 69% 71% 90% 95% / 45% 47% 100% 100%;
+}
+
+.locationIcon h4 {
+  font-size: 1.2em;
+}
+
+.address {
+  width: 60%;
+}
+
+.phone,
+.homepage,
+.email {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.phone img,
+.homepage img,
+.email img {
+  height: 1em;
+  margin-right: 0.7em;
 }

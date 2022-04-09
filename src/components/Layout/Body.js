@@ -8,7 +8,6 @@ import TownSearchBox from "../SearchBox/TownSearchBox";
 import AddMarkers from "../Map/AddMarkers";
 
 import locateIcon from "../../img/currLoc.svg";
-import spyGlass from "../../img/spy-glass.svg";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import "./Body.css";
 
@@ -98,7 +97,6 @@ const Body = () => {
             </label>
           </div>
         </div>
-
         <ListFoodbanks items={foodbanksWithinBounds} />
       </div>
       <div className="mapWrapper">

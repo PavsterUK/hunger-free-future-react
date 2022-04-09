@@ -12,7 +12,6 @@
 
 .searchboxContainer {
   display: flex;
-  border: 1px solid red;
   align-items: center;
   justify-content: space-between;
 }
@@ -38,3 +37,22 @@
   height: 100%;
   max-height: 100%;
 }
+
+.my-div-icon {
+  padding: .3em;
+  display: flex;
+  justify-content: center;
+  color: white;
+  background-color: green !important;
+  height: 2.5em !important;
+  min-width: fit-content !important; 
+  width: 1.8em !important; 
+  border-radius:69% 71% 90% 95% / 45% 47% 100% 100%;
+}
+
+.my-div-icon h4 {
+  font-size: 1.2em;
+}
+
+
+ 
