@@ -14,6 +14,7 @@ import "./Body.css";
 const Body = () => {
   const [allFoodbanks, setAllFoodbanks] = useState([]);
   const [foodbanksWithinBounds, setFoodbanksWithinBounds] = useState([]);
+  const [location, setLocation] = useState([]);
   const mapRef = useRef();
 
   useEffect(async () => {
@@ -34,6 +35,7 @@ const Body = () => {
     }, 3000);
   }, [mapRef]);
 
+  
   function MapBoundsAfterMove() {
     const map = useMapEvent("moveend", () => {
       setFbWithinBounds(map.getBounds());
@@ -51,6 +53,7 @@ const Body = () => {
           .setLatLng([e.latitude, e.longitude])
           .setContent("<p>Your approx. location</p>")
           .openOn(map);
+        setLocation([e.latitude, e.longitude]);
         setTimeout(() => {
           L.circle([e.latitude, e.longitude], { radius: 100 }).addTo(map);
         }, 4000);
@@ -63,22 +66,22 @@ const Body = () => {
 
   async function flyToCoord(coordinates) {
     await mapRef.current.flyTo(coordinates, 13);
+    setLocation(coordinates);
   }
 
-  const setFbWithinBounds = (boundsAtMoveend) => {
-    setFoodbanksWithinBounds(
-      allFoodbanks.filter((foodbank) => {
-        return boundsAtMoveend.contains(
-          L.latLng(
-            foodbank.lat_lng.substring(0, foodbank.lat_lng.indexOf(",") - 1),
-            foodbank.lat_lng.substring(
-              foodbank.lat_lng.indexOf(",") + 1,
-              foodbank.lat_lng.length
-            )
+  const setFbWithinBounds = (boundsAtMoveend, limit = 99) => {
+    const itemsWithinBounds = allFoodbanks.filter((foodbank) => {
+      return boundsAtMoveend.contains(
+        L.latLng(
+          foodbank.lat_lng.substring(0, foodbank.lat_lng.indexOf(",") - 1),
+          foodbank.lat_lng.substring(
+            foodbank.lat_lng.indexOf(",") + 1,
+            foodbank.lat_lng.length
           )
-        );
-      })
-    );
+        )
+      );
+    });
+    itemsWithinBounds.length < limit ? setFoodbanksWithinBounds(itemsWithinBounds) : setFoodbanksWithinBounds([]);
   };
 
   return (
@@ -97,7 +100,7 @@ const Body = () => {
             </label>
           </div>
         </div>
-        <ListFoodbanks items={foodbanksWithinBounds} />
+        <ListFoodbanks items={foodbanksWithinBounds} location={location} />
       </div>
       <div className="mapWrapper">
         <div className="map-container">
