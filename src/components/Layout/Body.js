@@ -23,7 +23,7 @@ const Body = () => {
         "https://hunger-free-future.herokuapp.com/v1/api/foodbanks-with-needs"
       );
       const salvArmResp = await fetch(
-        "https://hunger-free-future.herokuapp.com/api/all-salvation-army-with-needs"
+        "https://hunger-free-future.herokuapp.com/v1/api/all-salvation-army-with-needs"
       );
       const foodbanksJson = await foodbanksResp.json();
       const salvArmJson = await salvArmResp.json();
