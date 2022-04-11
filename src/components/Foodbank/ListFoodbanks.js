@@ -20,7 +20,7 @@ const ListFoodbanks = (props) => {
 
   const toggleMoreInfo = () => {
     setMoreInfoIsOpen(!moreInfoIsOpen);
-  }
+  };
 
   const foodBanks = props.items.map((foodbank, i) => {
     const latLong = foodbank.lat_lng.split(",");
@@ -49,27 +49,27 @@ const ListFoodbanks = (props) => {
             <div className={styles.address}>{foodbank.address}</div>
             <div className={styles.icons}>
               <a href={foodbank.homepage} className={styles.homepage}>
-                <img src={homepagePic} />
+                <img src={homepagePic} alt="" />
                 <div>Visit homepage</div>
               </a>
 
               <a href={`tel:${foodbank.phone}`} className={styles.phone}>
-                <img src={phonePic} />
+                <img src={phonePic} alt="" />
                 <div>{foodbank.phone}</div>
               </a>
             </div>
             <a href={`mailto:${foodbank.email}`} className={styles.email}>
-              <img src={mailPic} />
+              <img src={mailPic} alt="" />
               <div>{foodbank.email}</div>
             </a>
             <div className={styles.distance}>
-              <img src={distancePic} />
+              <img src={distancePic} alt="" />
               Approx. {distanceTo(latLong[0], latLong[1])} miles away
             </div>
           </div>
           <div className={styles.moreInfo} onClick={toggleMoreInfo}>
             More info
-            <img src={plusGreen} />
+            <img src={plusGreen} alt=""/>
           </div>
         </div>
         <div className={styles.moreInfoRevealed}>

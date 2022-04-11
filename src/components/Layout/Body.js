@@ -17,25 +17,44 @@ const Body = () => {
   const [location, setLocation] = useState([]);
   const mapRef = useRef();
 
-  useEffect(async () => {
-    const foodbanksResp = await fetch(
-      "http://localhost:8080/v1/api/foodbanks-with-needs"
-    );
-    const salvArmResp = await fetch(
-      "http://localhost:8080/v1/api/all-salvation-army-with-needs"
-    );
-    const foodbanksJson = await foodbanksResp.json();
-    const salvArmJson = await salvArmResp.json();
-    setAllFoodbanks([...foodbanksJson, ...salvArmJson]);
+  useEffect(() => {
+    async function fetchData() {
+      const foodbanksResp = await fetch(
+        "https://hunger-free-future.herokuapp.com/v1/api/foodbanks-with-needs"
+      );
+      const salvArmResp = await fetch(
+        "https://hunger-free-future.herokuapp.com/api/all-salvation-army-with-needs"
+      );
+      const foodbanksJson = await foodbanksResp.json();
+      const salvArmJson = await salvArmResp.json();
+      setAllFoodbanks([...foodbanksJson, ...salvArmJson]);
+    }
+    fetchData();
   }, [mapRef]);
 
   useEffect(() => {
     setTimeout(() => {
-      flyToCurrentLocation();
+      const { current: map } = mapRef;
+    map
+      .locate() /*Returs map so you can do chaining */
+      .on("locationfound", function (e) {
+        flyToCoord([e.latitude, e.longitude]);
+        L.popup()
+          .setLatLng([e.latitude, e.longitude])
+          .setContent("<p>Your approx. location</p>")
+          .openOn(map);
+        setLocation([e.latitude, e.longitude]);
+        setTimeout(() => {
+          L.circle([e.latitude, e.longitude], { radius: 100 }).addTo(map);
+        }, 4000);
+      })
+      .on("locationerror", function (e) {
+        console.log(e);
+        alert("Location declined by user.");
+      });
     }, 3000);
   }, [mapRef]);
 
-  
   function MapBoundsAfterMove() {
     const map = useMapEvent("moveend", () => {
       setFbWithinBounds(map.getBounds());
@@ -49,7 +68,7 @@ const Body = () => {
       .locate() /*Returs map so you can do chaining */
       .on("locationfound", function (e) {
         flyToCoord([e.latitude, e.longitude]);
-        const popup = L.popup()
+        L.popup()
           .setLatLng([e.latitude, e.longitude])
           .setContent("<p>Your approx. location</p>")
           .openOn(map);
@@ -81,7 +100,9 @@ const Body = () => {
         )
       );
     });
-    itemsWithinBounds.length < limit ? setFoodbanksWithinBounds(itemsWithinBounds) : setFoodbanksWithinBounds([]);
+    itemsWithinBounds.length < limit
+      ? setFoodbanksWithinBounds(itemsWithinBounds)
+      : setFoodbanksWithinBounds([]);
   };
 
   return (
@@ -91,6 +112,7 @@ const Body = () => {
           <TownSearchBox flyToCoord={flyToCoord} />
           <div className="my-location-container">
             <img
+              alt=""
               id="location-image"
               src={locateIcon}
               onClick={flyToCurrentLocation}
