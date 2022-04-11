@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import L from "leaflet";
 import { Marker, Tooltip, Popup } from "react-leaflet";
 
