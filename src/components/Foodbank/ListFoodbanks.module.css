@@ -1,9 +1,88 @@
 .container {
-  flex: 1;
-  overflow: auto;
+  margin-top: 1em;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.863);
+  font-family: Roboto, sans-serif;
 }
 
 .foodbank {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  font-weight: 600;
+}
+
+.foodbank a {
+  color: black;
+}
+
+.mainInfo {
+  flex-grow: 1;
+}
+
+.moreInfo {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  white-space: nowrap;
+  color: green;
+  margin-right: 1em;
+}
+
+.icons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.locationIcon {
+  margin: 1em 1em 0 1em;
+  padding: 0.3em;
+  display: flex;
+  justify-content: center;
+  color: white;
+  background-color: green !important;
+  height: 2.5em !important;
+  min-width: fit-content !important;
+  width: 1.8em !important;
+  border-radius: 69% 71% 90% 95% / 45% 47% 100% 100%;
+}
+
+.locationIcon h4 {
+  font-size: 1.2em;
+}
+
+.address {
+  color: #545454;
+  width: 60%;
+}
+
+.phone,
+.homepage,
+.email,
+.distance {
+  margin-top: 0.4em;
+  margin-right: 1.2em;
+  flex: 40%;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.phone img,
+.homepage img,
+.email img {
+  height: 1em;
+  margin-right: 0.7em;
+}
+
+.distance img {
+  height: 1.8em;
+}
+
+.moreInfo img {
+  height: 1em;
+  margin-right: 0.7em;
+  margin-left: 0.3em;
+}
+
+.moreInfoRevealed {
+  margin: 3em;
 }
