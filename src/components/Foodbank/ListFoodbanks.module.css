@@ -1,12 +1,19 @@
 .container {
-  margin-top: 1em;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.863);
+  margin: 1em;
   font-family: Roboto, sans-serif;
+}
+
+.mainAndMoreInfoContaniner {
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  background: #aebc4648;
 }
 
 .foodbank {
   display: flex;
   font-weight: 600;
+  padding: 1em 0 1em 0;
 }
 
 .foodbank a {
@@ -15,6 +22,14 @@
 
 .mainInfo {
   flex-grow: 1;
+}
+
+.mainInfo h3 {
+  font-family: Tungsten-Semibold;
+  font-size: 2em;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .moreInfo {
@@ -84,5 +99,6 @@
 }
 
 .moreInfoRevealed {
-  margin: 3em;
+  margin: 0 4em 1em 4em;
+  
 }

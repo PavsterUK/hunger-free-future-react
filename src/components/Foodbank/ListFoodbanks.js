@@ -26,53 +26,55 @@ const ListFoodbanks = (props) => {
     const latLong = foodbank.lat_lng.split(",");
     const moreInfo = (
       <>
-        <h4>Any food Donations always welcomed.</h4>
-        <span>
-          {foodbank.needs != null && (
-            <>
-              <h5>Particularly following items:</h5>
-              <span>{foodbank.needs}</span>
-            </>
-          )}
-        </span>
+        <div className={styles.moreInfoRevealed}>
+          <h4>Any food Donations always welcomed.</h4>
+          <span>
+            {foodbank.needs != null && (
+              <>
+                <h5>Very handy if we can get some:</h5>
+                <span>{foodbank.needs}</span>
+              </>
+            )}
+          </span>
+        </div>
       </>
     );
 
     return (
       <div className={styles.container}>
-        <div key={i} className={styles.foodbank}>
-          <div className={styles.locationIcon}>
-            <h3>{i + 1}</h3>
-          </div>
-          <div className={styles.mainInfo}>
-            <h3>{foodbank.name}</h3>
-            <div className={styles.address}>{foodbank.address}</div>
-            <div className={styles.icons}>
-              <a href={foodbank.homepage} className={styles.homepage}>
-                <img src={homepagePic} alt="" />
-                <div>Visit homepage</div>
-              </a>
+        <div className={styles.mainAndMoreInfoContaniner}>
+          <div key={i} className={styles.foodbank}>
+            <div className={styles.locationIcon}>
+              <h3>{i + 1}</h3>
+            </div>
+            <div className={styles.mainInfo}>
+              <h3>{foodbank.name}</h3>
+              <div className={styles.address}>{foodbank.address}</div>
+              <div className={styles.icons}>
+                <a href={foodbank.homepage} className={styles.homepage}>
+                  <img src={homepagePic} alt="" />
+                  <div>Visit homepage</div>
+                </a>
 
-              <a href={`tel:${foodbank.phone}`} className={styles.phone}>
-                <img src={phonePic} alt="" />
-                <div>{foodbank.phone}</div>
+                <a href={`tel:${foodbank.phone}`} className={styles.phone}>
+                  <img src={phonePic} alt="" />
+                  <div>{foodbank.phone}</div>
+                </a>
+              </div>
+              <a href={`mailto:${foodbank.email}`} className={styles.email}>
+                <img src={mailPic} alt="" />
+                <div>{foodbank.email}</div>
               </a>
+              <div className={styles.distance}>
+                <img src={distancePic} alt="" />
+                Approx. {distanceTo(latLong[0], latLong[1])} miles away
+              </div>
             </div>
-            <a href={`mailto:${foodbank.email}`} className={styles.email}>
-              <img src={mailPic} alt="" />
-              <div>{foodbank.email}</div>
-            </a>
-            <div className={styles.distance}>
-              <img src={distancePic} alt="" />
-              Approx. {distanceTo(latLong[0], latLong[1])} miles away
+            <div className={styles.moreInfo} onClick={toggleMoreInfo}>
+              More info
+              <img src={plusGreen} alt="" />
             </div>
           </div>
-          <div className={styles.moreInfo} onClick={toggleMoreInfo}>
-            More info
-            <img src={plusGreen} alt=""/>
-          </div>
-        </div>
-        <div className={styles.moreInfoRevealed}>
           {moreInfoIsOpen && moreInfo}
         </div>
       </div>

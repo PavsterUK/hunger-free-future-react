@@ -5,6 +5,17 @@
   max-width: 100%;
 }
 
+@media only screen and (max-width: 1200px) {
+  .bodyContainer {
+    flex-direction: column;
+  }
+}
+
+.input-and-results-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .resultsContainer {
   width: 40vw;
   overflow: auto;
@@ -15,6 +26,8 @@
   align-items: center;
   justify-content: space-between;
 }
+
+
 
 .my-location-container {
   display: flex;

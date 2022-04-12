@@ -35,23 +35,23 @@ const Body = () => {
   useEffect(() => {
     setTimeout(() => {
       const { current: map } = mapRef;
-    map
-      .locate() /*Returs map so you can do chaining */
-      .on("locationfound", function (e) {
-        flyToCoord([e.latitude, e.longitude]);
-        L.popup()
-          .setLatLng([e.latitude, e.longitude])
-          .setContent("<p>Your approx. location</p>")
-          .openOn(map);
-        setLocation([e.latitude, e.longitude]);
-        setTimeout(() => {
-          L.circle([e.latitude, e.longitude], { radius: 100 }).addTo(map);
-        }, 4000);
-      })
-      .on("locationerror", function (e) {
-        console.log(e);
-        alert("Location declined by user.");
-      });
+      map
+        .locate() /*Returs map so you can do chaining */
+        .on("locationfound", function (e) {
+          flyToCoord([e.latitude, e.longitude]);
+          L.popup()
+            .setLatLng([e.latitude, e.longitude])
+            .setContent("<p>Your approx. location</p>")
+            .openOn(map);
+          setLocation([e.latitude, e.longitude]);
+          setTimeout(() => {
+            L.circle([e.latitude, e.longitude], { radius: 100 }).addTo(map);
+          }, 4000);
+        })
+        .on("locationerror", function (e) {
+          console.log(e);
+          alert("Location declined by user.");
+        });
     }, 3000);
   }, [mapRef]);
 
@@ -107,7 +107,7 @@ const Body = () => {
 
   return (
     <div className="bodyContainer">
-      <div className="resultsContainer">
+      <div className="input-and-results-container">
         <div className="searchboxContainer">
           <TownSearchBox flyToCoord={flyToCoord} />
           <div className="my-location-container">
@@ -122,7 +122,9 @@ const Body = () => {
             </label>
           </div>
         </div>
-        <ListFoodbanks items={foodbanksWithinBounds} location={location} />
+        <div className="resultsContainer">
+          <ListFoodbanks items={foodbanksWithinBounds} location={location} />
+        </div>
       </div>
       <div className="mapWrapper">
         <div className="map-container">
