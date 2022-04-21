@@ -23,7 +23,7 @@ const ListFoodbanks = (props) => {
   };
 
   const foodBanks = props.items.map((foodbank, i) => {
-    const latLong = foodbank.lat_lng.split(",");
+
     const moreInfo = (
       <>
         <div className={styles.moreInfoRevealed}>
@@ -41,16 +41,15 @@ const ListFoodbanks = (props) => {
     );
 
     return (
-      <div className={styles.container}>
         <div className={styles.mainAndMoreInfoContaniner}>
-          <div key={i} className={styles.foodbank}>
+          <div key={foodbank.slug + foodbank.id} className={styles.foodbank}>
             <div className={styles.locationIcon}>
               <h3>{i + 1}</h3>
             </div>
             <div className={styles.mainInfo}>
               <h3>{foodbank.name}</h3>
               <div className={styles.address}>{foodbank.address}</div>
-              <div className={styles.icons}>
+              <div className={styles.contactDetails}>
                 <a href={foodbank.homepage} className={styles.homepage}>
                   <img src={homepagePic} alt="" />
                   <div>Visit homepage</div>
@@ -67,7 +66,7 @@ const ListFoodbanks = (props) => {
               </a>
               <div className={styles.distance}>
                 <img src={distancePic} alt="" />
-                Approx. {distanceTo(latLong[0], latLong[1])} miles away
+                Approx. {distanceTo(foodbank.latitude, foodbank.longitude)} miles from specified location
               </div>
             </div>
             <div className={styles.moreInfo} onClick={toggleMoreInfo}>
@@ -77,7 +76,6 @@ const ListFoodbanks = (props) => {
           </div>
           {moreInfoIsOpen && moreInfo}
         </div>
-      </div>
     );
   });
 

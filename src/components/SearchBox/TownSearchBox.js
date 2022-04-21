@@ -9,7 +9,7 @@ const AddressSearchBox = (props) => {
   const findSuggestions = async (userInput) => {
     if (userInput.length > 0) {
       const townsResp = await fetch(
-        "https://hunger-free-future.herokuapp.com/v1/api/find-town/".concat(userInput)
+        "http://localhost:8080/v1/api/find-town/".concat(userInput)
       );
       const townsJson = await townsResp.json();
       setSuggestions(townsJson);
