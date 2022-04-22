@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
 import L from "leaflet";
 import { MapContainer, TileLayer, useMapEvent } from "react-leaflet";
@@ -6,12 +6,13 @@ import ListFoodbanks from "../Foodbank/ListFoodbanks";
 import TownSearchBox from "../SearchBox/TownSearchBox";
 import AddMarkers from "../Map/AddMarkers";
 
+
 import locateIcon from "../../img/currLoc.svg";
 import "react-leaflet-markercluster/dist/styles.min.css";
 import "./Body.css";
 
 const Body = () => {
-  const [itemsWithinBounds, setitemsWithinBounds] = useState([]);
+  const [itemsWithinBounds, setItemsWithinBounds] = useState([]);
   const [location, setLocation] = useState([]);
   const mapRef = useRef();
 
@@ -34,15 +35,14 @@ const Body = () => {
     )
     const locations = await locationsResponse.json();
 
-    setitemsWithinBounds([...foodbanks, ...locations])
-
+    setItemsWithinBounds([...foodbanks, ...locations])
   }
 
   useEffect(() => {
     setTimeout(() => {
       flyToUserLocationIfFound();
     }, 3000);
-  }, [mapRef]);
+    }, [mapRef]);
 
   const MapBoundsAfterMove = () => {
     const map = useMapEvent("moveend", () => {
@@ -51,7 +51,7 @@ const Body = () => {
     return null;
   }
 
-  const flyToUserLocationIfFound = () => {
+  const flyToUserLocationIfFound = useCallback( () => {
     const { current: map } = mapRef;
     map
       .locate() /*Returs map so you can do chaining */
@@ -70,7 +70,7 @@ const Body = () => {
         console.log(e);
         alert("Location declined by user.");
       });
-  }
+  }, [mapRef]);
 
   const flyToCoord = async (coordinates) => {
     await mapRef.current.flyTo(coordinates, 13);
