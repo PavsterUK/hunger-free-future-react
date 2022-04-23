@@ -23,6 +23,7 @@
 
 .mainInfo {
   flex-grow: 1;
+  overflow: auto;
 }
 
 .mainInfo h3 {
@@ -94,6 +95,7 @@
 }
 
 .moreInfo {
+  font-size: 1.4em;
   display: flex;
   justify-content: center;
 }
@@ -105,19 +107,41 @@
 }
 
 .moreInfoRevealed {
-  border-bottom: 1px solid red;
   padding: .8em;
 }
-
-
 
 .collapsible {
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  margin-bottom: .5em;
 }
 
+.tooManyResultsMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 30vh;
+}
+
+.tooManyResultsMessage img {
+  margin-bottom: .5em;
+  height: 6em;
+}
+
+.tooManyResultsMessage h3 {
+  font-family: Tungsten-Semibold;
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: 100;
+}
+
+.tooManyResultsMessage h4 {
+  color:#545454;
+  font-size: 1em;
+  font-weight: 100;
+}
 
 
 

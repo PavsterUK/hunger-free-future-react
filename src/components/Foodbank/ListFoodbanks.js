@@ -1,14 +1,14 @@
-import React, { useState } from "react";
 import styles from "./ListFoodbanks.module.css";
 import L from "leaflet";
 import Collapsible from "react-collapsible";
-import "./ListFoodbanks.css";
+import "./ListFoodbanksCollapsible.css";
 
 import phonePic from "../../img/phone-504.svg";
 import homepagePic from "../../img/homepage.svg";
 import mailPic from "../../img/mail.svg";
 import distancePic from "../../img/distance.svg";
 import plusGreen from "../../img/plus-green.svg";
+import gearsPic from "../../img/gears.svg";
 
 const ListFoodbanks = (props) => {
   // Distance between 2 point in miles, truncated to 2 decimals
@@ -28,7 +28,7 @@ const ListFoodbanks = (props) => {
     );
   };
 
-  const foodBanks = props.items.map((foodbank, i) => {
+  let results = props.items.map((foodbank, i) => {
     return (
       <div className={styles.mainAndMoreInfoContaniner}>
         <div key={foodbank.slug + foodbank.id} className={styles.foodbank}>
@@ -40,7 +40,9 @@ const ListFoodbanks = (props) => {
             <div className={styles.address}>{foodbank.address}</div>
             <div>
               {foodbank.part_of && (
-                <h4>This location is part of {foodbank.part_of} Foodbank.</h4>
+                <h4>
+                  This branch is part of {foodbank.part_of} Foodbank/Charity.
+                </h4>
               )}
             </div>
 
@@ -59,20 +61,25 @@ const ListFoodbanks = (props) => {
               <div>{foodbank.email}</div>
             </a>
 
-            <div className={styles.distance}>
-              <img src={distancePic} alt="" />
-              Approx. {distanceTo(foodbank.latitude, foodbank.longitude)} miles
-              away
-            </div>
+            {props.location.length > 0 && (
+              <div className={styles.distance}>
+                <img src={distancePic} alt="" />
+                Approx. {distanceTo(foodbank.latitude, foodbank.longitude)}{" "}
+                miles away
+              </div>
+            )}
           </div>
         </div>
-        <Collapsible className={styles.collapsible} trigger={<MoreInfo/>}>
+        <Collapsible className={styles.collapsible} trigger={<MoreInfo />}>
           <div className={styles.moreInfoRevealed}>
-            <h4>Any food Donations always welcomed.</h4>
+            <h4>
+              Please donate food. Contact this branch directly for more
+              information.
+            </h4>
             <span>
               {foodbank.needs != null && (
                 <>
-                  <h5>Items required by foodbank:</h5>
+                  <h4>Currently required items:</h4>
                   <span>{foodbank.needs}</span>
                 </>
               )}
@@ -83,7 +90,28 @@ const ListFoodbanks = (props) => {
     );
   });
 
-  return <div className={styles.container}>{foodBanks}</div>;
+  if (props.items.length === 0) {
+    results = (
+      <div className={styles.tooManyResultsMessage}>
+        <img src={gearsPic} />
+
+        {props.mapZoomLevel < 13 && (
+          <>
+            <h3>UH OH... looks like you zoomed out too far.</h3>
+            <h4>Try to zoom in to narrow down area.</h4>
+          </>
+        )}
+        {props.mapZoomLevel >= 13 && (
+          <>
+            <h3>UH OH... no results found.</h3>
+            <h4>Try looking in other nearby locations.</h4>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  return <div className={styles.container}>{results}</div>;
 };
 
 export default ListFoodbanks;

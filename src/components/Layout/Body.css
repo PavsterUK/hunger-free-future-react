@@ -1,23 +1,37 @@
 .bodyContainer {
   display: flex;
-  width: 100vw;
+  flex-grow: 1;
+  height: fit-content;
   height: 90vh;
-  max-width: 100%;
+}
+
+.mapWrapper {
+  flex-grow: 1;
 }
 
 @media only screen and (max-width: 1200px) {
   .bodyContainer {
+    min-width: 100vw;
     flex-direction: column;
+  }
+  .input-and-results-container {
+    display: flex;
+    flex-direction: column;
+    background: #c8c9bf48;
+    justify-content: center;
+    align-items: center;
+    max-height: 40vh;
   }
 }
 
 .input-and-results-container {
   display: flex;
   flex-direction: column;
+  background: #c8c9bf48;
 }
 
 .resultsContainer {
-  width: 40vw;
+  width: 25vw;
   overflow: auto;
 }
 
@@ -27,28 +41,22 @@
   justify-content: space-between;
 }
 
-
-
 .my-location-container {
+  color: #008000;
   display: flex;
   align-items: center;
   margin-right: 1em;
+  cursor: pointer;
+}
+
+.my-location-container:hover > * {
+  cursor: pointer;
 }
 
 .searchboxContainer img {
   padding: 0.3em;
   margin-left: 0.5em;
   height: 2em;
-}
-
-.mapWrapper {
-  width: 75vw;
-}
-
-.map-container {
-  width: 100%;
-  height: 100%;
-  max-height: 100%;
 }
 
 .my-div-icon {
@@ -65,6 +73,11 @@
 
 .my-div-icon h4 {
   font-size: 1.2em;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
 }
 
 

@@ -4,6 +4,7 @@
   justify-content: center;
   flex-grow: 1;
   position: relative;
+  
 }
 
 .input {
@@ -19,7 +20,12 @@
   font-size: 1.5em;
   font-style: italic;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.1rem;
+  background: #c8c9bf00;
+}
+
+.input:focus {
+  border: 3px solid #008000;
+  border-radius: 5px;
 }
 
 /* clears the ‘X’ from Internet Explorer */
@@ -43,23 +49,27 @@
 
 input::placeholder {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-style: italic;
 }
 
 .suggestions {
-  
   position: absolute;
-  width: 96%;
+  width: 95%;
   top: 3.5em;
   height: fit-content;
   z-index: 10;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
+  font-size: 1.2em;
+  border-radius: 5px;
+
 }
 
 .suggestion {
   list-style: none;
   overflow: hidden;
+  margin: .5em;
+  cursor: pointer;
 }
 
 .suggestion:hover {
