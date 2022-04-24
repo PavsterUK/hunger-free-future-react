@@ -1,5 +1,4 @@
 .container {
-  padding: 1em 0 1em 0;
   display: flex;
   justify-content: center;
   flex-grow: 1;
@@ -24,7 +23,7 @@
 }
 
 .input:focus {
-  border: 3px solid #008000;
+  border: 3px solid #064635;;
   border-radius: 5px;
 }
 
@@ -53,26 +52,30 @@ input::placeholder {
   font-style: italic;
 }
 
+@media only screen and (max-width: 1200px) {
+  input::placeholder {
+    font-size: 1.1rem;
+  }
+}
+
 .suggestions {
   position: absolute;
   width: 95%;
   top: 3.5em;
   height: fit-content;
-  z-index: 10;
+  z-index: 10000;
   background-color: rgb(255, 255, 255);
   font-size: 1.2em;
   border-radius: 5px;
-
 }
 
 .suggestion {
   list-style: none;
   overflow: hidden;
-  margin: .5em;
+  margin: 0.5em;
   cursor: pointer;
 }
 
 .suggestion:hover {
-  background-color:rgb(185, 193, 201);
+  background-color: rgb(185, 193, 201);
 }
-

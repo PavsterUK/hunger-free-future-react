@@ -47,7 +47,8 @@ const Body = () => {
   const MapBoundsAfterMove = () => {
     const map = useMapEvent("moveend", () => {
       setMapZoomLevel(map.getZoom());
-      if (map.getZoom() < 13) {
+      if (map.getZoom() < 12) {
+        //If zoomed out too far return emty list
         setItemsWithinBounds([]);
       } else {
         fetchWithinBounds(map.getBounds());
@@ -83,25 +84,30 @@ const Body = () => {
   };
 
   return (
-    <div className="bodyContainer">
-      <div className="input-and-results-container">
-        <div className="searchboxContainer">
-          <TownSearchBox flyToCoord={flyToCoord} />
-          <div
-            className="my-location-container"
-            onClick={flyToUserLocationIfFound}
-          >
-            <img alt="" id="location-image" src={locateIcon} />
-            <label id="location-image-label" for="location-image">
-              My location
-            </label>
+    <>
+      <div className="bodyContainer">
+        <div className="input-and-results-container">
+          <div className="searchboxContainer">
+            <TownSearchBox flyToCoord={flyToCoord} />
+            <div
+              className="my-location-container"
+              onClick={flyToUserLocationIfFound}
+            >
+              <img alt="" id="location-image" src={locateIcon} />
+              <label id="location-image-label" for="location-image">
+                My location
+              </label>
+            </div>
+          </div>
+          <div className="resultsContainer">
+            <ListFoodbanks
+              mapZoomLevel={mapRef.current && mapRef.current.getZoom()}
+              items={itemsWithinBounds}
+              location={location}
+            />
           </div>
         </div>
-        <div className="resultsContainer">
-          <ListFoodbanks mapZoomLevel={mapRef.current && mapRef.current.getZoom()} items={itemsWithinBounds} location={location} />
-        </div>
-      </div>
-      <div className="mapWrapper">
+        <div className="mapWrapper">
           <MapContainer
             whenCreated={(mapInstance) => {
               mapRef.current = mapInstance;
@@ -116,8 +122,9 @@ const Body = () => {
             <AddMarkers items={itemsWithinBounds} />
             <MapBoundsAfterMove />
           </MapContainer>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -3,6 +3,10 @@
   font-family: Roboto, sans-serif;
 }
 
+@media only screen and (max-width: 1200px) {
+ 
+}
+
 .mainAndMoreInfoContaniner {
   margin-bottom: 1em;
   border-radius: 1em;
@@ -123,6 +127,7 @@
   align-items: center;
   justify-content: center;
   height: 30vh;
+  text-align: center;
 }
 
 .tooManyResultsMessage img {

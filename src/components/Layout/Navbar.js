@@ -11,9 +11,6 @@ const Navbar = () => {
           <a href="#">Mission </a>
         </li>
         <li>
-          <a href="#">FoodBanks</a>
-        </li>
-        <li>
           <a href="#">About</a>
         </li>
         <li>
