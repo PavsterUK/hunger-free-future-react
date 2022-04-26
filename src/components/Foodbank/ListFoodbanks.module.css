@@ -3,10 +3,6 @@
   font-family: Roboto, sans-serif;
 }
 
-@media only screen and (max-width: 1200px) {
- 
-}
-
 .mainAndMoreInfoContaniner {
   margin-bottom: 1em;
   border-radius: 1em;
@@ -39,12 +35,7 @@
 }
 
 .moreInfo {
-  display: flex;
-  align-items: center;
-  align-self: flex-end;
-  white-space: nowrap;
-  color: green;
-  margin-right: 1em;
+  
 }
 
 .contactDetails {
@@ -99,13 +90,19 @@
 }
 
 .moreInfo {
-  font-size: 1.4em;
   display: flex;
+  align-items: center;
+  align-self: flex-end;
+  white-space: nowrap;
+  color: green;
+  margin-right: 1em;
+  font-family: Tungsten-Semibold; 
+  font-size: 1.4em;
   justify-content: center;
 }
 
 .moreInfo img {
-  height: 1em;
+  height: .8em;
   margin-right: 0.7em;
   margin-left: 0.3em;
 }

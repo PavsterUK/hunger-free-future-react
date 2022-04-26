@@ -16,47 +16,6 @@ const Body = () => {
   const [mapZoomLevel, setMapZoomLevel] = useState();
   const mapRef = useRef();
 
-  const fetchWithinBounds = async (bounds) => {
-    //Right bottom corner coords.
-    const swLat = bounds.getSouthWest().lat;
-    const swLng = bounds.getSouthWest().lng;
-
-    //Left upper corner coords.
-    const neLat = bounds.getNorthEast().lat;
-    const neLng = bounds.getNorthEast().lng;
-
-    const foodbanksResponse = await fetch(
-      `http://localhost:8080/v1/api/foodbanks-within?swLat=${swLat}&swLng=${swLng}&neLat=${neLat}&neLng=${neLng}`
-    );
-    const foodbanks = await foodbanksResponse.json();
-
-    const locationsResponse = await fetch(
-      `http://localhost:8080/v1/api/locations-within?swLat=${swLat}&swLng=${swLng}&neLat=${neLat}&neLng=${neLng}`
-    );
-    const locations = await locationsResponse.json();
-
-    setItemsWithinBounds([...foodbanks, ...locations]);
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-      flyToUserLocationIfFound();
-    }, 3000);
-  }, [mapRef]);
-
-  const MapBoundsAfterMove = () => {
-    const map = useMapEvent("moveend", () => {
-      setMapZoomLevel(map.getZoom());
-      if (map.getZoom() < 12) {
-        //If zoomed out too far return emty list
-        setItemsWithinBounds([]);
-      } else {
-        fetchWithinBounds(map.getBounds());
-      }
-    });
-    return null;
-  };
-
   const flyToUserLocationIfFound = useCallback(() => {
     const { current: map } = mapRef;
     map
@@ -78,6 +37,48 @@ const Body = () => {
       });
   }, [mapRef]);
 
+  const fetchWithinBounds = async (bounds) => {
+    //Right bottom corner coords.
+    const swLat = bounds.getSouthWest().lat;
+    const swLng = bounds.getSouthWest().lng;
+
+    //Left upper corner coords.
+    const neLat = bounds.getNorthEast().lat;
+    const neLng = bounds.getNorthEast().lng;
+
+    const foodbanksResponse = await fetch(
+      `https://hunger-free-future.herokuapp.com/v1/api/foodbanks-within/${swLat}/${swLng}/${neLat}/${neLng}`
+    );
+    const foodbanks = await foodbanksResponse.json();
+
+    const locationsResponse = await fetch(
+      `https://hunger-free-future.herokuapp.com/v1/api/locations-within/${swLat}/${swLng}/${neLat}/${neLng}`
+    );
+    const locations = await locationsResponse.json();
+
+    setItemsWithinBounds([...foodbanks, ...locations]);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      flyToUserLocationIfFound();
+    }, 3000);
+  }, [mapRef, flyToUserLocationIfFound]);
+
+
+  const MapBoundsAfterMove = () => {
+    const map = useMapEvent("moveend", () => {
+      setMapZoomLevel(map.getZoom());
+      if (map.getZoom() < 12) {
+        //If zoomed out too far return emty list
+        setItemsWithinBounds([]);
+      } else {
+        fetchWithinBounds(map.getBounds());
+      }
+    });
+    return null;
+  };
+
   const flyToCoord = async (coordinates) => {
     await mapRef.current.flyTo(coordinates, 13);
     setLocation(coordinates);
@@ -88,7 +89,7 @@ const Body = () => {
       <div className="bodyContainer">
         <div className="input-and-results-container">
           <div className="searchboxContainer">
-            <TownSearchBox flyToCoord={flyToCoord} />
+            <TownSearchBox mapZoomLevel={mapZoomLevel} flyToCoord={flyToCoord} />
             <div
               className="my-location-container"
               onClick={flyToUserLocationIfFound}

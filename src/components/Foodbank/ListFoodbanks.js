@@ -93,7 +93,7 @@ const ListFoodbanks = (props) => {
   if (props.items.length === 0) {
     results = (
       <div className={styles.tooManyResultsMessage}>
-        <img src={gearsPic} />
+        <img src={gearsPic}  alt=""/>
 
         {props.mapZoomLevel < 13 && (
           <>
@@ -104,7 +104,7 @@ const ListFoodbanks = (props) => {
         {props.mapZoomLevel >= 13 && (
           <>
             <h3>UH OH... no results found.</h3>
-            <h4>Try looking in other nearby locations.</h4>
+            <h4>Try looking nearby, dragging map to any side.</h4>
           </>
         )}
       </div>

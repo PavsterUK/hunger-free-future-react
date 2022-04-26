@@ -17,7 +17,7 @@ const AddMarkers = (props) => {
         <Tooltip>
           <span>{foodbank.name}</span>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            <span>{foodbank.name}<br/>{foodbank.address}</span>
           </Popup>
         </Tooltip>
       </Marker>

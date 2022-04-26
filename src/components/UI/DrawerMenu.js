@@ -1,8 +1,5 @@
 import React from "react";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
@@ -12,22 +9,13 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import BurgerMenuIcon from "../../img/open-menu-6208.svg";
 
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: "auto",
-  },
-});
+import "./DrawerMenu.css";
 
 export default function TemporaryDrawer() {
-  const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const list = () => (
     <div
-      
       role="presentation"
       onClick={() => setOpen(false)}
       onKeyDown={() => setOpen(false)}
@@ -47,8 +35,8 @@ export default function TemporaryDrawer() {
   );
 
   return (
-    <div>
-      <Button onClick={ () => setOpen(true)}>Click me</Button>
+    <div className="burger-menu-container">
+      <img src={BurgerMenuIcon} alt="" onClick={() => setOpen(true)} />
       <Drawer anchor={"right"} open={open} onClose={() => setOpen(false)}>
         {list()}
       </Drawer>
