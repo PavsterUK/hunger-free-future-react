@@ -1,12 +1,20 @@
 .container {
-  margin-top: 1em;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.863);
+  margin: 1em;
   font-family: Roboto, sans-serif;
+}
+
+.mainAndMoreInfoContaniner {
+  margin-bottom: 1em;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: column;
+  background: #aebc4648;
 }
 
 .foodbank {
   display: flex;
   font-weight: 600;
+  padding: 1em 0 1em 0;
 }
 
 .foodbank a {
@@ -15,18 +23,22 @@
 
 .mainInfo {
   flex-grow: 1;
+  overflow: auto;
+}
+
+.mainInfo h3 {
+  font-family: Tungsten-Semibold;
+  font-size: 2em;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .moreInfo {
-  display: flex;
-  align-items: center;
-  align-self: flex-end;
-  white-space: nowrap;
-  color: green;
-  margin-right: 1em;
+  
 }
 
-.icons {
+.contactDetails {
   display: flex;
   flex-wrap: wrap;
 }
@@ -77,12 +89,61 @@
   height: 1.8em;
 }
 
+.moreInfo {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  white-space: nowrap;
+  color: green;
+  margin-right: 1em;
+  font-family: Tungsten-Semibold; 
+  font-size: 1.4em;
+  justify-content: center;
+}
+
 .moreInfo img {
-  height: 1em;
+  height: .8em;
   margin-right: 0.7em;
   margin-left: 0.3em;
 }
 
 .moreInfoRevealed {
-  margin: 3em;
+  padding: .8em;
 }
+
+.collapsible {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: .5em;
+}
+
+.tooManyResultsMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 30vh;
+  text-align: center;
+}
+
+.tooManyResultsMessage img {
+  margin-bottom: .5em;
+  height: 6em;
+}
+
+.tooManyResultsMessage h3 {
+  font-family: Tungsten-Semibold;
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: 100;
+}
+
+.tooManyResultsMessage h4 {
+  color:#545454;
+  font-size: 1em;
+  font-weight: 100;
+}
+
+
+

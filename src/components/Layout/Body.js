@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
 import L from "leaflet";
 import { MapContainer, TileLayer, useMapEvent } from "react-leaflet";
-import MarkerClusterGroup from "react-leaflet-markercluster";
 import ListFoodbanks from "../Foodbank/ListFoodbanks";
 import TownSearchBox from "../SearchBox/TownSearchBox";
 import AddMarkers from "../Map/AddMarkers";
@@ -12,57 +11,12 @@ import "react-leaflet-markercluster/dist/styles.min.css";
 import "./Body.css";
 
 const Body = () => {
-  const [allFoodbanks, setAllFoodbanks] = useState([]);
-  const [foodbanksWithinBounds, setFoodbanksWithinBounds] = useState([]);
+  const [itemsWithinBounds, setItemsWithinBounds] = useState([]);
   const [location, setLocation] = useState([]);
+  const [mapZoomLevel, setMapZoomLevel] = useState();
   const mapRef = useRef();
 
-  useEffect(() => {
-    async function fetchData() {
-      const foodbanksResp = await fetch(
-        "https://hunger-free-future.herokuapp.com/v1/api/foodbanks-with-needs"
-      );
-      const salvArmResp = await fetch(
-        "https://hunger-free-future.herokuapp.com/v1/api/all-salvation-army-with-needs"
-      );
-      const foodbanksJson = await foodbanksResp.json();
-      const salvArmJson = await salvArmResp.json();
-      setAllFoodbanks([...foodbanksJson, ...salvArmJson]);
-    }
-    fetchData();
-  }, [mapRef]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      const { current: map } = mapRef;
-    map
-      .locate() /*Returs map so you can do chaining */
-      .on("locationfound", function (e) {
-        flyToCoord([e.latitude, e.longitude]);
-        L.popup()
-          .setLatLng([e.latitude, e.longitude])
-          .setContent("<p>Your approx. location</p>")
-          .openOn(map);
-        setLocation([e.latitude, e.longitude]);
-        setTimeout(() => {
-          L.circle([e.latitude, e.longitude], { radius: 100 }).addTo(map);
-        }, 4000);
-      })
-      .on("locationerror", function (e) {
-        console.log(e);
-        alert("Location declined by user.");
-      });
-    }, 3000);
-  }, [mapRef]);
-
-  function MapBoundsAfterMove() {
-    const map = useMapEvent("moveend", () => {
-      setFbWithinBounds(map.getBounds());
-    });
-    return null;
-  }
-
-  function flyToCurrentLocation() {
+  const flyToUserLocationIfFound = useCallback(() => {
     const { current: map } = mapRef;
     map
       .locate() /*Returs map so you can do chaining */
@@ -79,53 +33,82 @@ const Body = () => {
       })
       .on("locationerror", function (e) {
         console.log(e);
-        alert("Location declined by user.");
+        alert("User denied Geolocation.");
       });
-  }
+  }, [mapRef]);
 
-  async function flyToCoord(coordinates) {
+  const fetchWithinBounds = async (bounds) => {
+    //Right bottom corner coords.
+    const swLat = bounds.getSouthWest().lat;
+    const swLng = bounds.getSouthWest().lng;
+
+    //Left upper corner coords.
+    const neLat = bounds.getNorthEast().lat;
+    const neLng = bounds.getNorthEast().lng;
+
+    const foodbanksResponse = await fetch(
+      `https://hunger-free-future.herokuapp.com/v1/api/foodbanks-within/${swLat}/${swLng}/${neLat}/${neLng}`
+    );
+    const foodbanks = await foodbanksResponse.json();
+
+    const locationsResponse = await fetch(
+      `https://hunger-free-future.herokuapp.com/v1/api/locations-within/${swLat}/${swLng}/${neLat}/${neLng}`
+    );
+    const locations = await locationsResponse.json();
+
+    setItemsWithinBounds([...foodbanks, ...locations]);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      flyToUserLocationIfFound();
+    }, 3000);
+  }, [mapRef, flyToUserLocationIfFound]);
+
+
+  const MapBoundsAfterMove = () => {
+    const map = useMapEvent("moveend", () => {
+      setMapZoomLevel(map.getZoom());
+      if (map.getZoom() < 12) {
+        //If zoomed out too far return emty list
+        setItemsWithinBounds([]);
+      } else {
+        fetchWithinBounds(map.getBounds());
+      }
+    });
+    return null;
+  };
+
+  const flyToCoord = async (coordinates) => {
     await mapRef.current.flyTo(coordinates, 13);
     setLocation(coordinates);
-  }
-
-  const setFbWithinBounds = (boundsAtMoveend, limit = 99) => {
-    const itemsWithinBounds = allFoodbanks.filter((foodbank) => {
-      return boundsAtMoveend.contains(
-        L.latLng(
-          foodbank.lat_lng.substring(0, foodbank.lat_lng.indexOf(",") - 1),
-          foodbank.lat_lng.substring(
-            foodbank.lat_lng.indexOf(",") + 1,
-            foodbank.lat_lng.length
-          )
-        )
-      );
-    });
-    itemsWithinBounds.length < limit
-      ? setFoodbanksWithinBounds(itemsWithinBounds)
-      : setFoodbanksWithinBounds([]);
   };
 
   return (
-    <div className="bodyContainer">
-      <div className="resultsContainer">
-        <div className="searchboxContainer">
-          <TownSearchBox flyToCoord={flyToCoord} />
-          <div className="my-location-container">
-            <img
-              alt=""
-              id="location-image"
-              src={locateIcon}
-              onClick={flyToCurrentLocation}
+    <>
+      <div className="bodyContainer">
+        <div className="input-and-results-container">
+          <div className="searchboxContainer">
+            <TownSearchBox mapZoomLevel={mapZoomLevel} flyToCoord={flyToCoord} />
+            <div
+              className="my-location-container"
+              onClick={flyToUserLocationIfFound}
+            >
+              <img alt="" id="location-image" src={locateIcon} />
+              <label id="location-image-label" for="location-image">
+                My location
+              </label>
+            </div>
+          </div>
+          <div className="resultsContainer">
+            <ListFoodbanks
+              mapZoomLevel={mapRef.current && mapRef.current.getZoom()}
+              items={itemsWithinBounds}
+              location={location}
             />
-            <label id="location-image-label" for="location-image">
-              My location
-            </label>
           </div>
         </div>
-        <ListFoodbanks items={foodbanksWithinBounds} location={location} />
-      </div>
-      <div className="mapWrapper">
-        <div className="map-container">
+        <div className="mapWrapper">
           <MapContainer
             whenCreated={(mapInstance) => {
               mapRef.current = mapInstance;
@@ -135,23 +118,14 @@ const Body = () => {
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=HM5OeEc4UZtoMyYxgZbV"
+              url="https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=NtCHCLnEB2T8gRRbY03N"
             />
-
-            <MarkerClusterGroup
-              showCoverageOnHover={false}
-              spiderLegPolylineOptions={{
-                weight: 0,
-                opacity: 0,
-              }}
-            >
-              <AddMarkers items={foodbanksWithinBounds} />
-            </MarkerClusterGroup>
+            <AddMarkers items={itemsWithinBounds} />
             <MapBoundsAfterMove />
           </MapContainer>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

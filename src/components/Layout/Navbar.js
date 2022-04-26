@@ -1,9 +1,12 @@
 import React from "react";
+import About from "../Tabs/About";
 
 import styles from "./Navbar.module.css";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 const Navbar = () => {
+  
+
   return (
     <div className={styles.container}>
       <ul className={styles.mainNav}>
@@ -11,10 +14,7 @@ const Navbar = () => {
           <a href="#">Mission </a>
         </li>
         <li>
-          <a href="#">FoodBanks</a>
-        </li>
-        <li>
-          <a href="#">About</a>
+          <About isOpen={false}/>
         </li>
         <li>
           <a href="#">Contact</a>

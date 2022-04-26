@@ -15,3 +15,9 @@
     font-family: Tungsten-Semibold;
     color: #ffff;
 }
+
+@media only screen and (max-width: 1200px) {
+    .container {
+        display: none;
+    }
+}

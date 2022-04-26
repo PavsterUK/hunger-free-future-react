@@ -1,0 +1,9 @@
+
+
+.Collapsible__contentInner{
+    margin: 1em 0 1em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  

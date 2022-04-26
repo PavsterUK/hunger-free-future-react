@@ -1,0 +1,12 @@
+.burger-menu-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 1200px) {
+    .burger-menu-container {
+        display: none;
+        
+      }
+}

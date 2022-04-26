@@ -51,7 +51,7 @@ const AddressSearchBox = (props) => {
       <input
         value={userInput}
         className={styles.input}
-        placeholder="Type your town name"
+        placeholder="Enter your town name"
         type="search"
         onChange={onUserInputChange}
         onBlur={() => setSuggestions([])}
