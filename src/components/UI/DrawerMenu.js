@@ -5,13 +5,13 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import BurgerMenuIcon from "../../img/open-menu-6208.svg";
+import ContactSupportIcon from "@material-ui/icons/ContactSupport";
+import ContactsIcon from "@material-ui/icons/Contacts";
 
 import "./DrawerMenu.css";
 
-export default function TemporaryDrawer() {
+export default function TemporaryDrawer(props) {
   const [open, setOpen] = React.useState(false);
 
   const list = () => (
@@ -21,14 +21,27 @@ export default function TemporaryDrawer() {
       onKeyDown={() => setOpen(false)}
     >
       <List>
-        {["Mission", "About", "Contact"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem
+          onClick={() => props.setOpenTab("about")}
+          button
+          key={"about"}
+        >
+          <ListItemIcon>
+            <ContactSupportIcon />
+          </ListItemIcon>
+          <ListItemText primary={"ABOUT"} />
+        </ListItem>
+
+        <ListItem
+          onClick={() => props.setOpenTab("contact")}
+          button
+          key={"contact"}
+        >
+          <ListItemIcon>
+            <ContactsIcon />
+          </ListItemIcon>
+          <ListItemText primary={"CONTACT"} />
+        </ListItem>
       </List>
       <Divider />
     </div>

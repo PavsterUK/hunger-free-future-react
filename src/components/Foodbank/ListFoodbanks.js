@@ -22,7 +22,7 @@ const ListFoodbanks = (props) => {
   const MoreInfo = () => {
     return (
       <div className={styles.moreInfo}>
-        More info
+        <h6>More info</h6> 
         <img src={plusGreen} alt="" />
       </div>
     );
@@ -40,32 +40,34 @@ const ListFoodbanks = (props) => {
             <div className={styles.address}>{foodbank.address}</div>
             <div>
               {foodbank.part_of && (
-                <h4>
+                <h6>
                   This branch is part of {foodbank.part_of} Foodbank/Charity.
-                </h4>
+                </h6>
               )}
             </div>
 
             <a href={foodbank.homepage} className={styles.homepage}>
               <img src={homepagePic} alt="" />
-              <div>Visit homepage</div>
+              <h6>Visit homepage</h6>
             </a>
 
             <a href={`tel:${foodbank.phone}`} className={styles.phone}>
               <img src={phonePic} alt="" />
-              <div>{foodbank.phone}</div>
+              <h6>{foodbank.phone}</h6>
             </a>
 
             <a href={`mailto:${foodbank.email}`} className={styles.email}>
               <img src={mailPic} alt="" />
-              <div>{foodbank.email}</div>
+              <h6>{foodbank.email}</h6>
             </a>
 
             {props.location.length > 0 && (
               <div className={styles.distance}>
                 <img src={distancePic} alt="" />
-                Approx. {distanceTo(foodbank.latitude, foodbank.longitude)}{" "}
-                miles away
+                <h6>
+                  Approx. {distanceTo(foodbank.latitude, foodbank.longitude)}{" "}
+                  miles away
+                </h6>
               </div>
             )}
           </div>
@@ -93,7 +95,7 @@ const ListFoodbanks = (props) => {
   if (props.items.length === 0) {
     results = (
       <div className={styles.tooManyResultsMessage}>
-        <img src={gearsPic}  alt=""/>
+        <img src={gearsPic} alt="" />
 
         {props.mapZoomLevel < 13 && (
           <>

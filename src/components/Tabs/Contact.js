@@ -32,24 +32,19 @@ const useStyles = makeStyles((theme) => ({
 export default function SimpleModal(props) {
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState();
+  const [open, setOpen] = React.useState(props.isOpen);
 
   const handleOpen = () => {
     setOpen(true);
-  
   };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  if (props.openTab === "about") {
-    handleOpen();
-  }
-
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">ABOUT</h2>
+      <h2 id="simple-modal-title">CONTACT</h2>
       <p id="simple-modal-description">
         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
       </p>
@@ -60,7 +55,7 @@ export default function SimpleModal(props) {
   return (
     <div className="about-container">
       <h3 onClick={handleOpen}>
-        About
+        Contact
       </h3>
       <Modal
         open={open}
