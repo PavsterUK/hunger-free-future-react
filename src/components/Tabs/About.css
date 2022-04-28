@@ -6,3 +6,7 @@
   font-family: Tungsten-Semibold;
   color: #ffff;
 }
+
+.MuiModal-root {
+  background-color: aquamarine;
+}

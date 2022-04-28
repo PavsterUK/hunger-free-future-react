@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import "./About.css";
@@ -34,18 +34,21 @@ export default function SimpleModal(props) {
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState();
 
+  useEffect(() => {
+    if (props.openTab === "about") {
+      handleOpen();
+      props.setOpenTab("");
+    }   
+    
+  }, [props]);
+
   const handleOpen = () => {
     setOpen(true);
-  
   };
 
   const handleClose = () => {
     setOpen(false);
   };
-
-  if (props.openTab === "about") {
-    handleOpen();
-  }
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
