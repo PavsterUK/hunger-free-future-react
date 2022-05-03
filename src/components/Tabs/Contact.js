@@ -1,24 +1,24 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
+import CloseIcon from '@mui/icons-material/Close';
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import PhoneIcon from '@mui/icons-material/Phone';
-import ChatIcon from '@mui/icons-material/Chat';
+import PhoneIcon from "@mui/icons-material/Phone";
+import ChatIcon from "@mui/icons-material/Chat";
 import "./Contact.css";
 
 function getModalStyle() {
+  const top = 25;
+
   return {
-    minWidth: "100vw",
-    maxWidth: "100vw",
-    top: "20%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    top: `${top}%`,
+    margin: "auto",
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    borderRadius: "none",
+    borderRadius: "15px",
     border: "none",
     outline: "none",
     minWidth: "60vw",
@@ -26,11 +26,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    position: "absolute",
-    width: 400,
     backgroundColor: "#005051",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    
   },
 }));
 
@@ -55,29 +54,38 @@ export default function SimpleModal(props) {
   };
 
   const body = (
-    <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">GET IN TOUCH</h2>
-      <div className="columns-container">
-        <div>
-          <div className="round-div">
-            <LocationOnIcon sx={{ color: "#ffffff", fontSize: "3.5em"}}/>
-          </div>
-        </div>
+    
+      <div style={modalStyle} className={classes.paper}>
+        <CloseIcon onClick={handleClose} sx={{ color: "#ffffff", fontSize: "3.5em", marginLeft: "auto", border: "1px solid white" }}/>
+        <h2 id="simple-modal-title">GET IN TOUCH</h2>
 
-        <div>
-          <div className="round-div">
-            <PhoneIcon  sx={{ color: "#ffffff", fontSize: "3.5em" }}/>
+        <div className="columns-container">
+          <div className="column">
+            <div className="round-div">
+              <LocationOnIcon sx={{ color: "#ffffff", fontSize: "3.5em" }} />
+            </div>
+            <h2>ADDRESS</h2>
+            <h3>Chippenham, Wiltshire</h3>
           </div>
-        </div>
 
-        <div>
-          <div className="round-div">
-            <ChatIcon  sx={{ color: "#ffffff", fontSize: "3.5em" }}/>
+          <div className="column">
+            <div className="round-div">
+              <PhoneIcon sx={{ color: "#ffffff", fontSize: "3.5em" }} />
+            </div>
+            <h2>PHONE</h2>
+            <h3>07593676793</h3>
+          </div>
+
+          <div className="column">
+            <div className="round-div">
+              <ChatIcon sx={{ color: "#ffffff", fontSize: "3.5em" }} />
+            </div>
+            <h2>EMAIL</h2>
+            <h3>pavelnaumovic@gmail.com</h3>
           </div>
         </div>
-       
       </div>
-    </div>
+   
   );
 
   return (
@@ -86,6 +94,7 @@ export default function SimpleModal(props) {
       <Modal
         open={open}
         onClose={handleClose}
+        style={{ overflow: 'auto' }}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >

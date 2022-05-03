@@ -1,11 +1,7 @@
-.makeStyles-paper {
-  border: none !important;
-  border-radius: 0 !important;
-  outline: none !important;
-}
 
 #simple-modal-title {
-  font-size: 3em;
+  margin-top: 1em;;
+  font-size: 3.5em;
   letter-spacing: .07em;
   text-transform: uppercase;
   font-family: Tungsten-Semibold;
@@ -13,25 +9,72 @@
 }
 
 .columns-container {
-  width: 30%;
+  width: 70%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1300px) {
+  .columns-container {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .column {
+    margin: 0 !important;
+  }
+
+  .round-div {
+    margin-top: 2em !important;
+  }
+
+  .column h3 {
+    margin-top: .5rem!important;
+    font-size: 1.3em!important;
+  }
 }
 
 .round-div {
-  margin-top: 2em;
-  background-color: #80a8a8 !important;
+  margin-top: 4em;
+  background-color: #80a8a8;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 7em;
   width: 7em;
-  background-color: #bbb;
   border-radius: 50%;
 }
 
 .round-div:hover {
-  background-color:#7f8b29;
+  background-color: #7f8b29;
 }
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-family: Tungsten-Semibold;
+  letter-spacing: .1em;
+  margin: 2em;
+  
+}
+
+.column h2 {
+  font-size: 1.8em;
+  margin-top: 1.2rem;
+}
+
+.column h3 {
+  margin-top: 1rem;
+  font-weight: 100;
+  font-size: 1.5em;
+}
+
+
+
+
+
 
 
