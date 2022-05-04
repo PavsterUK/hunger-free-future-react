@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#005051",
+    backgroundColor: "#064635",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     

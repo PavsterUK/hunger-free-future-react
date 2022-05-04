@@ -1,29 +1,28 @@
-import React, {useEffect} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+import React, { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
 import "./About.css";
 
 function getModalStyle() {
-  
+  const top = 25;
+
   return {
-    top: "30%",
-    left: "30%",
-    transform: `translate(-10%, -50%)`,
+    top: `${top}%`,
+    margin: "auto",
   };
 }
 
 const useStyles = makeStyles((theme) => ({
   paper: {
+    borderRadius: "15px",
+    border: "none",
+    outline: "none",
     minWidth: "60vw",
-    borderRadius: "10px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    backgroundColor: "#064635",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -38,8 +37,7 @@ export default function SimpleModal(props) {
     if (props.openTab === "about") {
       handleOpen();
       props.setOpenTab("");
-    }   
-    
+    }
   }, [props]);
 
   const handleOpen = () => {
@@ -62,9 +60,7 @@ export default function SimpleModal(props) {
 
   return (
     <div className="about-container">
-      <h3 onClick={handleOpen}>
-        About
-      </h3>
+      <h3 onClick={handleOpen}>About</h3>
       <Modal
         open={open}
         onClose={handleClose}

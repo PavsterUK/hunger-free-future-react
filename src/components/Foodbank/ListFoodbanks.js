@@ -22,7 +22,7 @@ const ListFoodbanks = (props) => {
   const MoreInfo = () => {
     return (
       <div className={styles.moreInfo}>
-        <h6>More info</h6> 
+        <h6>Show more</h6> 
         <img src={plusGreen} alt="" />
       </div>
     );

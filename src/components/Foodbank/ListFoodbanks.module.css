@@ -21,44 +21,6 @@
   padding: 1em 0 1em 0;
 }
 
-@media only screen and (max-width: 700px) {
-  .foodbank {
-    padding: .5em 0 0 0;
-    font-weight: 400;
-  }
-
-  .container h6 {
-    font-size: .7em;
-  }
-
-  .address {
-    width: 80%;
-    font-size: .8em;
-  }
-
-  .mainInfo h4 {
-    font-size: .8em;
-  }
-
-  .mainInfo h3 {
-    font-size: 1.5em !important;
-  }
-
-  .moreInfo img {
-    height: .6em !important;
-  }
-
-  .moreInfoRevealed {
-    padding: 0 0.5em 0 0.5em !important;
-    font-size: .8em;
-    text-align: center;
-  }
-  
-  .collapsible {
-    margin-bottom: 0 !important;
-  }
-}
-
 .foodbank a {
   color: black;
 }
@@ -100,7 +62,7 @@
 
 .address {
   color: #545454;
-  width: 60%;
+  width: 80%;
 }
 
 .phone,
@@ -145,6 +107,10 @@
   margin-left: 0.3em;
 }
 
+.moreInfo h6 {
+  font-weight: 100;
+}
+
 .moreInfoRevealed {
   padding: 0.8em;
 }
@@ -181,4 +147,66 @@
   color: #545454;
   font-size: 1em;
   font-weight: 100;
+}
+
+@media only screen and (max-width: 700px) {
+  .foodbank {
+    padding: .5em 0 0 0;
+    font-weight: 400;
+  }
+
+  .foodbank img {
+    height: 1.5em;
+  }
+
+  .address {
+    width: 95%;
+    font-size: 1.2em ;
+  }
+
+  .homepage h6 {
+    font-size: 1.2em;
+    text-transform: capitalize;
+  }
+
+  .phone h6 {
+    font-size: 1.2em;
+  }
+
+  .email h6 {
+    font-size: 1.2em;
+    width: 80%;
+  }
+
+  .distance h6 {
+    font-size: 1.2em
+  }
+
+  .mainInfo h3 {
+    font-size: 2em ;
+  }
+
+  .mainInfo h4 {
+    font-size: .8em;
+  }
+
+  .moreInfo img {
+    height: .6em ;
+  }
+
+  .moreInfo {
+    margin: .5em 0 0 .5em;;
+    text-decoration: underline;
+    
+  }
+
+  .moreInfoRevealed {
+    padding: 0 0.5em 0 0.5em ;
+    font-size: 1em;
+    text-align: center;
+  }
+  
+  .collapsible {
+    margin-bottom: 0 ;
+  }
 }
