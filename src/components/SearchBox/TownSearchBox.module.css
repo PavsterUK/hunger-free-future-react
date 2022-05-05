@@ -18,12 +18,7 @@
   font-style: italic;
   font-family: Arial, Helvetica, sans-serif;
   background: #c8c9bf00;
-}
-
-.input:focus {
-  -webkit-box-shadow: inset 0px 0px 0px 2px #064635;
-  -moz-box-shadow: inset 0px 0px 0px 2px #064635;
-  box-shadow: inset 0px 0px 0px 2px #064635;
+  margin-left: .5em;
 }
 
 /* clears the ‘X’ from Internet Explorer */
@@ -51,30 +46,26 @@ input::placeholder {
   font-style: italic;
 }
 
-@media only screen and (max-width: 1200px) {
-  input::placeholder {
-    font-size: 1.1rem;
-  }
-}
-
 .suggestions {
   position: absolute;
-  width: 95%;
-  top: 3.5em;
+  top: 1.5em;
+  left: 0;
+  width: 100vw;
   height: fit-content;
   z-index: 10000;
-  background-color: rgb(255, 255, 255);
+  background-color: gainsboro;
   font-size: 1.2em;
-  border-radius: 5px;
 }
 
 .suggestion {
   list-style: none;
   overflow: hidden;
-  margin: 0.5em;
   cursor: pointer;
+  padding: 1em;
+  border: 1px solid grey;
 }
 
 .suggestion:hover {
-  background-color: rgb(185, 193, 201);
+  background-color: rgb(196, 196, 196);
 }
+

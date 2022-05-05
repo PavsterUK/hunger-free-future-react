@@ -65,7 +65,6 @@ const Body = () => {
     }, 3000);
   }, [mapRef, flyToUserLocationIfFound]);
 
-
   const MapBoundsAfterMove = () => {
     const map = useMapEvent("moveend", () => {
       setMapZoomLevel(map.getZoom());
@@ -87,25 +86,16 @@ const Body = () => {
   return (
     <>
       <div className="bodyContainer">
-        <div className="input-and-results-container">
-          <div className="searchboxContainer">
-            <TownSearchBox mapZoomLevel={mapZoomLevel} flyToCoord={flyToCoord} />
-            <div
-              className="my-location-container"
-              onClick={flyToUserLocationIfFound}
-            >
-              <img alt="" id="location-image" src={locateIcon} />
-              <label id="location-image-label" for="location-image">
-                My location
-              </label>
-            </div>
-          </div>
-          <div className="resultsContainer">
-            <ListFoodbanks
-              mapZoomLevel={mapRef.current && mapRef.current.getZoom()}
-              items={itemsWithinBounds}
-              location={location}
-            />
+        <div className="searchboxContainer">
+          <TownSearchBox mapZoomLevel={mapZoomLevel} flyToCoord={flyToCoord} />
+          <div
+            className="my-location-container"
+            onClick={flyToUserLocationIfFound}
+          >
+            <img alt="" id="location-image" src={locateIcon} />
+            <label id="location-image-label" for="location-image">
+              My location
+            </label>
           </div>
         </div>
         <div className="mapWrapper">
@@ -123,6 +113,13 @@ const Body = () => {
             <AddMarkers items={itemsWithinBounds} />
             <MapBoundsAfterMove />
           </MapContainer>
+        </div>
+        <div className="resultsContainer">
+          <ListFoodbanks
+            mapZoomLevel={mapRef.current && mapRef.current.getZoom()}
+            items={itemsWithinBounds}
+            location={location}
+          />
         </div>
       </div>
     </>
