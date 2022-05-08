@@ -106,7 +106,7 @@ const ListFoodbanks = (props) => {
         {props.mapZoomLevel >= 13 && (
           <>
             <h3>UH OH... no results found.</h3>
-            <h4>Try looking nearby, dragging map to any side.</h4>
+            <h4>Try to look in another location.</h4>
           </>
         )}
       </div>

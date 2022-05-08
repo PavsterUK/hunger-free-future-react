@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import "./About.css";
+import CloseIcon from "@mui/icons-material/Close";
 
 function getModalStyle() {
   const top = 25;
@@ -50,11 +51,19 @@ export default function SimpleModal(props) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
+      <CloseIcon
+        onClick={handleClose}
+        sx={{
+          color: "#ffffff",
+          fontSize: "3.5em",
+          marginLeft: "auto",
+          border: "1px solid white",
+        }}
+      />
       <h2 id="simple-modal-title">ABOUT</h2>
       <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+        
       </p>
-      <SimpleModal />
     </div>
   );
 

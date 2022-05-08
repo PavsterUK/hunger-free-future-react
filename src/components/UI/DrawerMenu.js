@@ -26,9 +26,6 @@ export default function TemporaryDrawer(props) {
           button
           key={"about"}
         >
-          <ListItemIcon>
-            <ContactSupportIcon />
-          </ListItemIcon>
           <ListItemText primary={"ABOUT"} />
         </ListItem>
 
@@ -37,9 +34,6 @@ export default function TemporaryDrawer(props) {
           button
           key={"contact"}
         >
-          <ListItemIcon>
-            <ContactsIcon />
-          </ListItemIcon>
           <ListItemText primary={"CONTACT"} />
         </ListItem>
       </List>

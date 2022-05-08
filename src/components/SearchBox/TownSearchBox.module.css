@@ -18,7 +18,7 @@
   font-style: italic;
   font-family: Arial, Helvetica, sans-serif;
   background: #c8c9bf00;
-  margin-left: .5em;
+  margin-left: 0.5em;
 }
 
 /* clears the ‘X’ from Internet Explorer */
@@ -53,7 +53,7 @@ input::placeholder {
   width: 100vw;
   height: fit-content;
   z-index: 10000;
-  background-color: gainsboro;
+  background-color: rgba(240, 240, 240, 0.904);
   font-size: 1.2em;
 }
 
@@ -69,3 +69,8 @@ input::placeholder {
   background-color: rgb(196, 196, 196);
 }
 
+@media only screen and (min-width: 1200px) {
+  .suggestions {
+    width: 100%;
+  }
+}
