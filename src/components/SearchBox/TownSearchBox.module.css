@@ -1,9 +1,9 @@
 .container {
   display: flex;
   justify-content: center;
-  flex-grow: 1;
+  height: 100%;
   position: relative;
-  
+  flex-grow: 1;
 }
 
 .input {
@@ -11,20 +11,14 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  border-color: aliceblue;
-  border-bottom: 1px solid;
-  margin: 0.5em 0 0.5em 0;
-  padding-left: 0.5em;
-  width: 95%;
-  font-size: 1.5em;
+  padding: 0 0 0 0.5em;
+  height: 100%;
+  width: 100%;
+  font-size: 1.1em;
   font-style: italic;
   font-family: Arial, Helvetica, sans-serif;
   background: #c8c9bf00;
-}
-
-.input:focus {
-  border: 3px solid #064635;;
-  border-radius: 5px;
+  margin-left: 0.5em;
 }
 
 /* clears the ‘X’ from Internet Explorer */
@@ -48,34 +42,35 @@
 
 input::placeholder {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-style: italic;
-}
-
-@media only screen and (max-width: 1200px) {
-  input::placeholder {
-    font-size: 1.1rem;
-  }
 }
 
 .suggestions {
   position: absolute;
-  width: 95%;
-  top: 3.5em;
+  top: 1.5em;
+  left: 0;
+  width: 100vw;
   height: fit-content;
   z-index: 10000;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(240, 240, 240, 0.904);
   font-size: 1.2em;
-  border-radius: 5px;
 }
 
 .suggestion {
   list-style: none;
   overflow: hidden;
-  margin: 0.5em;
   cursor: pointer;
+  padding: 1em;
+  border: 1px solid grey;
 }
 
 .suggestion:hover {
-  background-color: rgb(185, 193, 201);
+  background-color: rgb(196, 196, 196);
+}
+
+@media only screen and (min-width: 1200px) {
+  .suggestions {
+    width: 100%;
+  }
 }

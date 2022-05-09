@@ -3,6 +3,10 @@
   font-family: Roboto, sans-serif;
 }
 
+.container h6 {
+  font-size: 1em;
+}
+
 .mainAndMoreInfoContaniner {
   margin-bottom: 1em;
   border-radius: 1em;
@@ -34,10 +38,6 @@
   font-weight: bold;
 }
 
-.moreInfo {
-  
-}
-
 .contactDetails {
   display: flex;
   flex-wrap: wrap;
@@ -62,7 +62,7 @@
 
 .address {
   color: #545454;
-  width: 60%;
+  width: 80%;
 }
 
 .phone,
@@ -96,26 +96,30 @@
   white-space: nowrap;
   color: green;
   margin-right: 1em;
-  font-family: Tungsten-Semibold; 
+  font-family: Tungsten-Semibold;
   font-size: 1.4em;
   justify-content: center;
 }
 
 .moreInfo img {
-  height: .8em;
+  height: 0.8em;
   margin-right: 0.7em;
   margin-left: 0.3em;
 }
 
+.moreInfo h6 {
+  font-weight: 100;
+}
+
 .moreInfoRevealed {
-  padding: .8em;
+  padding: 0.8em;
 }
 
 .collapsible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 .tooManyResultsMessage {
@@ -128,7 +132,7 @@
 }
 
 .tooManyResultsMessage img {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   height: 6em;
 }
 
@@ -140,10 +144,70 @@
 }
 
 .tooManyResultsMessage h4 {
-  color:#545454;
+  color: #545454;
   font-size: 1em;
   font-weight: 100;
 }
 
+@media only screen and (max-width: 700px) {
+  .foodbank {
+    padding: .5em 0 0 0;
+    font-weight: 400;
+  }
 
+  .foodbank img {
+    height: 1.5em;
+  }
 
+  .address {
+    width: 95%;
+    font-size: 1.2em ;
+  }
+
+  .homepage h6 {
+    font-size: 1.2em;
+    text-transform: capitalize;
+  }
+
+  .phone h6 {
+    font-size: 1.2em;
+  }
+
+  .email h6 {
+    font-size: 1.2em;
+    width: 80%;
+  }
+
+  .distance h6 {
+    font-size: 1.2em
+  }
+
+  .mainInfo h3 {
+    font-size: 2em ;
+  }
+
+  .mainInfo h4 {
+    font-size: .8em;
+  }
+
+  .moreInfo img {
+    height: .6em ;
+  }
+
+  .moreInfo {
+    margin: .5em 0 0 .5em;;
+    text-decoration: underline;
+    
+  }
+
+  .moreInfoRevealed {
+    width: 90%;
+    padding: 0 0.5em 0 0.5em ;
+    font-size: 1em;
+    text-align: center;
+  }
+  
+  .collapsible {
+    margin-bottom: 0 ;
+  }
+}

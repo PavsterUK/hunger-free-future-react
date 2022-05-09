@@ -1,69 +1,29 @@
 .bodyContainer {
+  margin-top: 10vh;
   display: flex;
-  flex-grow: 1;
-  height: fit-content;
-  height: 90vh;
+  flex-direction: column;
 }
 
 .mapWrapper {
-  flex-grow: 1;
-}
-
-@media only screen and (max-width: 1200px) {
-  .bodyContainer {
-    min-width: 100vw;
-    flex-direction: column-reverse;
-  }
-  .input-and-results-container {
-    padding-top: 1em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #c8c9bf48;
-    max-height: 40vh;
-    width: 100vw;
-  }
-
-  .resultsContainer {
-    min-width: 95vw;
-  }
-
-  .searchboxContainer {
-    position: absolute;
-    top: 10vh;
-    min-width: 100vw;
-  }
-
-  
-
-  .mapWrapper {
-    margin-top: 5vh;
-  }
-}
-
-@media only screen and (max-width: 1870px) {
-  #location-image-label {
-    display: none;
-  }
-}
-
-.input-and-results-container {
-  display: flex;
-  flex-direction: column;
-  background: #c8c9bf48;
+  height: 40vh;
 }
 
 .resultsContainer {
-  width: 25vw;
+  flex-grow: 1;
   overflow: auto;
 }
 
 .searchboxContainer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 25vw;
-  height: 5vh;
+  min-height: 4em;
+  background-color: white;
+}
+
+.searchboxContainer img {
+  padding: 0.3em;
+  margin-left: 0.5em;
+  height: 2em;
 }
 
 .my-location-container {
@@ -76,12 +36,6 @@
 
 .my-location-container:hover > * {
   cursor: pointer;
-}
-
-.searchboxContainer img {
-  padding: 0.3em;
-  margin-left: 0.5em;
-  height: 2em;
 }
 
 .my-div-icon {
@@ -101,6 +55,41 @@
 }
 
 .leaflet-container {
-  width: 100%;
-  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.MuiPaper-root {
+  min-width: 50vw;
+  z-index: 10000000;
+}
+
+.MuiPaper-root span {
+  font-size: 1.3em;
+}
+
+@media only screen and (max-width: 381px) {
+  #location-image-label {
+    font-size: 0.7em;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .bodyContainer {
+    width: 50vw;
+    align-self: center;
+    margin-top: 12vh;
+    border-radius: 10px;
+  }
+
+  .resultsContainer {
+    background-color: white;
+  }
+
+  .searchboxContainer {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
 }

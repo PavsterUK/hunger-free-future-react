@@ -1,23 +1,20 @@
 import React from "react";
 import About from "../Tabs/About";
+import Contact from "../Tabs/Contact";
 
 import styles from "./Navbar.module.css";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
-const Navbar = () => {
-  
-
+const Navbar = (props) => {
+ 
   return (
     <div className={styles.container}>
       <ul className={styles.mainNav}>
         <li>
-          <a href="#">Mission </a>
+          <About setOpenTab={props.setOpenTab} openTab={props.openTab}/>
         </li>
         <li>
-          <About isOpen={false}/>
-        </li>
-        <li>
-          <a href="#">Contact</a>
+          <Contact setOpenTab={props.setOpenTab} openTab={props.openTab}/>
         </li>
       </ul>
     </div>
