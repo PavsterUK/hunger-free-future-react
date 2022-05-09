@@ -62,7 +62,13 @@ export default function SimpleModal(props) {
       />
       <h2 id="simple-modal-title">ABOUT</h2>
       <p id="simple-modal-description">
-        
+        Foodbanks help people in difficult financial situations all around UK.
+        People can receive a food bank parcel of three days' nutritionally
+        balanced, non-perishable food from their local food bank.
+        <br/><br/>
+        This website will help you to find nearest food bank.
+        <br/><br/>
+        Big thanks to guys from https://www.givefood.org.uk for maintaining great API.
       </p>
     </div>
   );
